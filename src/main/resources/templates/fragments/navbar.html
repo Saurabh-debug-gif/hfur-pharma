@@ -13,6 +13,10 @@
             <i class="fa-brands fa-whatsapp"></i>
             +91 86930 30619
         </a>
+        <a href="mailto:hfurpharma@gmail.com">
+            <i class="fa-solid fa-envelope"></i>
+            hfurpharma@gmail.com
+        </a>
     </div>
 </div>
 
@@ -21,7 +25,21 @@
     <div class="container">
 
         <a class="navbar-brand" th:href="@{/}">
-            Hfur Pharma
+
+            <svg class="brand-mark" viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Hfur Pharma logo">
+                <rect width="40" height="40" rx="12" fill="url(#navLogoGrad)"/>
+                <path d="M12 28V12h3.4v6.3h9.2V12H28v16h-3.4v-6.4h-9.2V28H12Z" fill="#ffffff"/>
+                <circle cx="31" cy="9" r="4.2" fill="#D4A94F"/>
+                <defs>
+                    <linearGradient id="navLogoGrad" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+                        <stop stop-color="#0F7A4C"/>
+                        <stop offset="1" stop-color="#1ABC7B"/>
+                    </linearGradient>
+                </defs>
+            </svg>
+
+            <span class="brand-word">Hfur<span>Pharma</span></span>
+
         </a>
 
         <button class="navbar-toggler"
@@ -66,21 +84,6 @@
                 <li class="nav-item d-none" id="dashboardNav">
                     <a class="nav-link" id="dashboardLink">
                         Dashboard
-                    </a>
-                </li>
-
-                <!-- Customer only -->
-                <li class="nav-item d-none" id="cartNav">
-                    <a class="nav-link" href="/customer/cart">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        Cart
-                    </a>
-                </li>
-
-                <li class="nav-item d-none" id="enquiryNav">
-                    <a class="nav-link" href="/#contact">
-                        <i class="fa-solid fa-comment-dots"></i>
-                        Enquiry
                     </a>
                 </li>
 

@@ -115,6 +115,15 @@
     font-weight:700;
     font-size:22px;
     color:#ffffff;
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.site-footer .footer-logo-mark{
+    width:34px;
+    height:34px;
+    flex-shrink:0;
 }
 
 .site-footer .footer-brand span{
@@ -125,6 +134,9 @@
     .site-footer{
         text-align:center;
         padding-top:40px;
+    }
+    .site-footer .footer-brand{
+        justify-content:center;
     }
     .site-footer .footer-contact a{
         justify-content:center;

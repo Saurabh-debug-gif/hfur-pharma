@@ -2,7 +2,7 @@ const token = localStorage.getItem("token");
 
 const mrId = window.location.pathname.split("/").pop();
 
-const API = "http://https://hfur-pharma-1.onrender.com/api/admin/tracking";
+const API = "https://hfur-pharma-1.onrender.com/api/admin/tracking";
 
 async function loadTracking(){
 

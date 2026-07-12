@@ -1,6 +1,6 @@
 (() => {
 
-    const API = "http://https://hfur-pharma-1.onrender.com/api/admin/medicines";
+    const API = "https://hfur-pharma-1.onrender.com/api/admin/medicines";
 
     const adminToken = localStorage.getItem("token");
 
