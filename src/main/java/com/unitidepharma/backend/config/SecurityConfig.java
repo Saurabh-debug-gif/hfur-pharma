@@ -62,20 +62,11 @@ public class SecurityConfig {
                         ).permitAll()
 
                         // ==========================
-                        // Admin Pages
-                        // ==========================
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-
-                        // ==========================
-                        // Customer Pages
-                        // ==========================
-                        .requestMatchers("/customer/**").hasRole("CUSTOMER")
-
-                        // ==========================
-                        // MR Pages
-                        // ==========================
-                        .requestMatchers("/mr/**").hasRole("MR")
-
+                        .requestMatchers(
+                                "/admin/**",
+                                "/customer/**",
+                                "/mr/**"
+                        ).permitAll()
                         // ==========================
                         // Protected APIs
                         // ==========================

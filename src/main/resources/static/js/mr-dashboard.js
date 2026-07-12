@@ -1,7 +1,10 @@
 const token = localStorage.getItem("token");
 
-const API = "http://https://hfur-pharma-1.onrender.com/api/mr";
+if (!token) {
+    window.location.href = "/login";
+}
 
+const API = "https://hfur-pharma-1.onrender.com/api/mr";
 /* ==========================
       UPDATE LOCATION
 ========================== */

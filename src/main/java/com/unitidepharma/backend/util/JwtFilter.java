@@ -8,7 +8,6 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,58 +32,51 @@ public class JwtFilter extends OncePerRequestFilter {
 
         String path = request.getRequestURI();
 
-        // Skip public endpoints
-        if (!path.startsWith("/api/")
-                || path.startsWith("/api/auth/")
-                || path.startsWith("/api/public/")) {
+        // ============================
+        // Skip Public Routes
+        // ============================
+        if (path.startsWith("/api/auth/")
+                || path.startsWith("/api/public/")
+                || path.startsWith("/css/")
+                || path.startsWith("/js/")
+                || path.startsWith("/images/")
+                || path.startsWith("/icons/")
+                || path.startsWith("/webjars/")
+                || path.equals("/")
+                || path.equals("/login")
+                || path.equals("/register")
+                || path.equals("/home")
+                || path.equals("/favicon.ico")) {
 
             filterChain.doFilter(request, response);
             return;
         }
 
-        System.out.println("\n========== JWT FILTER ==========");
-        System.out.println("URI = " + path);
-
-        String header = request.getHeader("Authorization");
-
-        System.out.println("AUTH HEADER = " + header);
-
-        if (header == null || !header.startsWith("Bearer ")) {
-
-            System.out.println("Authorization header missing.");
-
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.getWriter().write("Missing Authorization Header");
-            return;
-        }
-
-        String token = header.substring(7);
-
         try {
 
-            System.out.println("TOKEN = " + token);
+            String header = request.getHeader("Authorization");
+
+            // No JWT → continue. SecurityConfig will decide if authentication is required.
+            if (header == null || !header.startsWith("Bearer ")) {
+                filterChain.doFilter(request, response);
+                return;
+            }
+
+            String token = header.substring(7);
 
             if (!jwtUtil.isTokenValid(token)) {
-
-                System.out.println("Token Invalid");
-
-                response.setStatus(HttpStatus.UNAUTHORIZED.value());
-                response.getWriter().write("Invalid Token");
+                filterChain.doFilter(request, response);
                 return;
             }
 
             String email = jwtUtil.extractEmail(token);
 
-            System.out.println("EMAIL = " + email);
-
             User user = userRepository.findByEmailIgnoreCase(email)
                     .orElseThrow(() -> new RuntimeException("User not found"));
 
-            System.out.println("ROLE = " + user.getRole());
-
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
-                            user.getEmail(),
+                            user,
                             null,
                             List.of(
                                     new SimpleGrantedAuthority(
@@ -95,32 +87,16 @@ public class JwtFilter extends OncePerRequestFilter {
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            System.out.println("Authentication Success");
+        } catch (JwtException e) {
 
-            filterChain.doFilter(request, response);
+            SecurityContextHolder.clearContext();
 
-        }
+        } catch (Exception e) {
 
-        catch (JwtException e) {
-
-            System.out.println("JWT ERROR");
-            e.printStackTrace();
-
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.getWriter().write("JWT Error : " + e.getMessage());
+            SecurityContextHolder.clearContext();
 
         }
 
-        catch (Exception e) {
-
-            System.out.println("GENERAL ERROR");
-            e.printStackTrace();
-
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.getWriter().write("General Error : " + e.getMessage());
-
-        }
-
+        filterChain.doFilter(request, response);
     }
-
 }

@@ -1,9 +1,8 @@
+const token = localStorage.getItem("token");
 const name = localStorage.getItem("name");
 
-if(!localStorage.getItem("token")){
-
-    window.location.href="/login";
-
+if (!token) {
+    window.location.href = "/login";
 }
 
-document.getElementById("customerName").innerHTML=name;
+document.getElementById("customerName").textContent = name;
