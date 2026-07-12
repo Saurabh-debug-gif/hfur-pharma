@@ -1,0 +1,267 @@
+/* =========================
+   DESIGN TOKENS (shared premium palette)
+========================= */
+
+:root{
+    --hp-green-900:#0b3d2e;
+    --hp-green-700:#0f7a4c;
+    --hp-green-600:#12a463;
+    --hp-green-500:#1abc7b;
+    --hp-green-100:#e7f8f0;
+    --hp-white:#ffffff;
+    --hp-ink:#0f1f1a;
+    --hp-muted:#5c6d67;
+}
+
+/* =========================
+   TOP UTILITY BAR (call / whatsapp)
+========================= */
+
+.topbar{
+    background:var(--hp-green-900);
+    color:#d9ece3;
+    font-size:13px;
+    padding:7px 0;
+}
+
+.topbar a{
+    color:#d9ece3;
+    text-decoration:none;
+    font-weight:500;
+    margin-right:22px;
+    transition:.2s;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+}
+
+.topbar a:last-child{
+    margin-right:0;
+}
+
+.topbar a:hover{
+    color:#ffffff;
+}
+
+.topbar i{
+    color:var(--hp-green-500);
+}
+
+.topbar .topbar-wa:hover i,
+.topbar .topbar-wa:hover{
+    color:#25D366;
+}
+
+@media(max-width:576px){
+    .topbar{
+        font-size:12px;
+    }
+    .topbar a{
+        margin-right:14px;
+    }
+}
+
+/* =========================
+   NAVBAR
+========================= */
+
+.navbar{
+
+    background:#ffffff;
+
+    box-shadow:0 2px 15px rgba(0,0,0,.08);
+
+    padding:15px 0;
+
+    position:sticky;
+
+    top:0;
+
+    z-index:1000;
+
+}
+
+.navbar-brand{
+
+    display:flex;
+
+    align-items:center;
+
+    font-family:'Poppins', sans-serif;
+
+    font-weight:700;
+
+    font-size:24px;
+
+    color:var(--hp-green-700) !important;
+
+    letter-spacing:-.01em;
+
+}
+
+.navbar-brand img{
+
+    width:45px;
+
+    height:45px;
+
+    margin-right:10px;
+
+}
+
+.nav-link{
+
+    color:#33403c !important;
+
+    font-weight:500;
+
+    margin-left:15px;
+
+    transition:.3s;
+
+    position:relative;
+
+}
+
+.nav-link:hover{
+
+    color:var(--hp-green-700) !important;
+
+}
+
+.nav-link::after{
+    content:"";
+    position:absolute;
+    left:0;
+    bottom:-2px;
+    width:0;
+    height:2px;
+    background:var(--hp-green-600);
+    transition:width .25s ease;
+}
+
+.nav-link:hover::after{
+    width:100%;
+}
+
+.login-btn{
+
+    margin-left:20px;
+
+    border-radius:30px;
+
+    padding:10px 25px;
+
+    background:linear-gradient(90deg, var(--hp-green-700), var(--hp-green-500));
+
+    border:none;
+
+    font-weight:600;
+
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media(max-width:992px){
+
+    .navbar-nav{
+
+        text-align:center;
+
+        margin-top:20px;
+
+    }
+
+    .nav-link{
+
+        margin:12px 0;
+
+    }
+
+    .nav-link::after{
+        display:none;
+    }
+
+    .login-btn{
+
+        margin-left:0;
+
+        margin-top:15px;
+
+        width:100%;
+
+    }
+
+}
+
+/* =========================
+   FLOATING CONTACT WIDGET
+========================= */
+
+.floating-contact{
+    position:fixed;
+    right:22px;
+    bottom:26px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    z-index:2000;
+}
+
+.fc-btn{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-size:1.4rem;
+    text-decoration:none;
+    box-shadow:0 10px 26px rgba(0,0,0,0.25);
+    transition:transform .2s ease, box-shadow .2s ease;
+}
+
+.fc-btn:hover{
+    color:#fff;
+    transform:translateY(-4px) scale(1.05);
+}
+
+.fc-wa{
+    background:#25D366;
+    position:relative;
+}
+
+.fc-wa::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    border-radius:50%;
+    background:#25D366;
+    animation:fcPulse 2.2s ease-out infinite;
+    z-index:-1;
+}
+
+@keyframes fcPulse{
+    0%{ transform:scale(1); opacity:.55; }
+    100%{ transform:scale(1.9); opacity:0; }
+}
+
+.fc-call{
+    background:linear-gradient(135deg, var(--hp-green-700), var(--hp-green-500));
+}
+
+@media(max-width:576px){
+    .floating-contact{
+        right:14px;
+        bottom:16px;
+        gap:10px;
+    }
+    .fc-btn{
+        width:48px;
+        height:48px;
+        font-size:1.2rem;
+    }
+}

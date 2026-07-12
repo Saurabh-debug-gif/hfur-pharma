@@ -1,0 +1,136 @@
+:root{
+    --hp-green-900:#0b3d2e;
+    --hp-green-700:#0f7a4c;
+    --hp-green-600:#12a463;
+    --hp-green-500:#1abc7b;
+    --hp-green-100:#e7f8f0;
+}
+
+.site-footer{
+    background:var(--hp-green-900);
+    color:#c9dfd5;
+    padding-top:56px;
+}
+
+.site-footer h5{
+    color:#ffffff;
+    font-family:'Poppins', sans-serif;
+    font-weight:700;
+    margin-bottom:18px;
+}
+
+.site-footer p{
+    color:#a9c6ba;
+    line-height:1.7;
+    font-size:14.5px;
+}
+
+.site-footer .footer-links{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+
+.site-footer .footer-links li{
+    margin-bottom:10px;
+}
+
+.site-footer .footer-links a{
+    color:#c9dfd5;
+    text-decoration:none;
+    font-size:14.5px;
+    transition:.2s;
+}
+
+.site-footer .footer-links a:hover{
+    color:var(--hp-green-500);
+    padding-left:3px;
+}
+
+.site-footer .footer-contact a{
+    color:#c9dfd5;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:12px;
+    font-size:14.5px;
+    transition:.2s;
+}
+
+.site-footer .footer-contact a:hover{
+    color:#ffffff;
+}
+
+.site-footer .footer-contact i{
+    width:32px;
+    height:32px;
+    flex-shrink:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(26,188,123,0.15);
+    color:var(--hp-green-500);
+    border-radius:50%;
+}
+
+.site-footer .footer-contact .wa-icon{
+    color:#25D366;
+    background:rgba(37,211,102,0.15);
+}
+
+.site-footer .social-icons{
+    margin-top:6px;
+}
+
+.site-footer .social-icons a{
+    width:38px;
+    height:38px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:rgba(255,255,255,0.08);
+    color:#ffffff;
+    border-radius:50%;
+    margin-right:10px;
+    text-decoration:none;
+    transition:.25s;
+}
+
+.site-footer .social-icons a:hover{
+    background:var(--hp-green-600);
+    transform:translateY(-3px);
+}
+
+.site-footer .footer-bottom{
+    border-top:1px solid rgba(255,255,255,0.1);
+    margin-top:40px;
+    padding:18px 0;
+    font-size:13.5px;
+    color:#9bb8ac;
+}
+
+.site-footer .footer-brand{
+    font-family:'Poppins', sans-serif;
+    font-weight:700;
+    font-size:22px;
+    color:#ffffff;
+}
+
+.site-footer .footer-brand span{
+    color:var(--hp-green-500);
+}
+
+@media(max-width:768px){
+    .site-footer{
+        text-align:center;
+        padding-top:40px;
+    }
+    .site-footer .footer-contact a{
+        justify-content:center;
+    }
+    .site-footer .social-icons{
+        justify-content:center;
+        display:flex;
+    }
+}

@@ -1,0 +1,27 @@
+body{
+
+    background:#f5f7fb;
+
+}
+
+.card{
+
+    border-radius:15px;
+
+}
+
+.table{
+
+    background:white;
+
+}
+
+@media(max-width:768px){
+
+    h2{
+
+        font-size:24px;
+
+    }
+
+}

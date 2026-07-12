@@ -1,0 +1,79 @@
+:root{
+    --hp-green-900:#0b3d2e;
+    --hp-green-700:#0f7a4c;
+    --hp-green-600:#12a463;
+    --hp-green-500:#1abc7b;
+    --hp-green-100:#e7f8f0;
+}
+
+body{
+
+    background:#f6f9f7;
+
+    font-family:'Inter', sans-serif;
+
+}
+
+section.container.py-5.mt-5 h2{
+    font-family:'Poppins', sans-serif;
+    font-weight:700;
+    color:var(--hp-green-900);
+}
+
+.order-card{
+
+    background:white;
+
+    padding:25px;
+
+    border-radius:16px;
+
+    margin-bottom:20px;
+
+    border:1px solid rgba(15,122,76,0.08);
+
+    box-shadow:0 6px 18px rgba(15,61,46,0.06);
+
+    transition:.25s;
+
+}
+
+.order-card:hover{
+    box-shadow:0 14px 28px rgba(15,61,46,0.12);
+}
+
+.status{
+
+    font-weight:700;
+
+    color:var(--hp-green-700);
+
+    background:var(--hp-green-100);
+
+    padding:3px 14px;
+
+    border-radius:50px;
+
+    font-size:13px;
+
+    display:inline-block;
+
+}
+
+.order-date{
+
+    color:#8a9a94;
+
+    font-size:14px;
+
+}
+
+@media(max-width:768px){
+
+    .order-card{
+
+        padding:18px;
+
+    }
+
+}

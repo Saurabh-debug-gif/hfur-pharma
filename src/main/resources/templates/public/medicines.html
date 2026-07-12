@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Medicines | Hfur Pharma</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+            rel="stylesheet">
+
+    <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link
+            rel="stylesheet"
+            th:href="@{/css/navbar.css}">
+
+    <link
+            rel="stylesheet"
+            th:href="@{/css/medicine.css}">
+
+    <!-- ============= PREMIUM UI ENHANCEMENT LAYER =============
+         Scoped, additive styles only. Does not touch/override
+         existing medicines.css / navbar.css, so nothing wired
+         to JS is affected. -->
+    <style>
+        :root{
+            --hp-green-900:#0b3d2e;
+            --hp-green-700:#0f7a4c;
+            --hp-green-600:#12a463;
+            --hp-green-500:#1abc7b;
+            --hp-green-100:#e7f8f0;
+            --hp-white:#ffffff;
+            --hp-ink:#0f1f1a;
+            --hp-muted:#5c6d67;
+        }
+
+        body{
+            font-family:'Inter', sans-serif;
+            color:var(--hp-ink);
+            background:var(--hp-white);
+        }
+
+        h1, h2, h3, h4, h5, h6{
+            font-family:'Poppins', sans-serif;
+            font-weight:700;
+            letter-spacing:-0.01em;
+        }
+
+        section.container.py-5.mt-4{
+            background:
+                    radial-gradient(900px 400px at 90% -10%, rgba(26,188,123,0.10), transparent 60%);
+        }
+
+        section.container.py-5.mt-4 > .text-center h2{
+            color:var(--hp-green-900);
+            position:relative;
+            display:inline-block;
+            padding-bottom:.6rem;
+        }
+
+        section.container.py-5.mt-4 > .text-center h2::after{
+            content:"";
+            position:absolute;
+            left:50%;
+            bottom:0;
+            transform:translateX(-50%);
+            width:56px;
+            height:4px;
+            border-radius:4px;
+            background:linear-gradient(90deg, var(--hp-green-600), var(--hp-green-500));
+        }
+
+        section.container.py-5.mt-4 > .text-center p.text-muted{
+            color:var(--hp-muted) !important;
+        }
+
+        #searchMedicine{
+            border-radius:50px;
+            border:1.5px solid #dce8e2;
+            padding:.9rem 1.5rem;
+            box-shadow:0 8px 24px rgba(15,61,46,0.06);
+        }
+
+        #searchMedicine:focus{
+            border-color:var(--hp-green-600);
+            box-shadow:0 0 0 .2rem rgba(26,188,123,0.18);
+        }
+
+        /* ---------- MEDICINE CARDS ----------
+             medicine.js injects elements using the .medicine-card /
+             .card-body / .card-title / .price / .stock / .btn-view
+             classes already defined in medicines.css — NOT Bootstrap's
+             .card. We only ADD to those existing rules, we never
+             redefine transform/hover so medicines.css's own hover
+             animation keeps working exactly as before. */
+        .medicine-card{
+            border:1px solid rgba(15,122,76,0.08);
+        }
+
+        .medicine-card:hover{
+            box-shadow:0 18px 36px rgba(15,61,46,0.18);
+        }
+
+        .card-title{
+            color:var(--hp-green-900);
+            font-family:'Poppins', sans-serif;
+        }
+
+        .stock{
+            font-size:.9rem;
+        }
+
+        .btn-view{
+            background:linear-gradient(90deg, var(--hp-green-700), var(--hp-green-500));
+            border:none;
+            border-radius:50px;
+            font-weight:600;
+            color:#fff;
+        }
+
+        .btn-view:hover{
+            color:#fff;
+            opacity:.92;
+        }
+
+        .no-data{
+            font-family:'Poppins', sans-serif;
+        }
+
+        @media (max-width: 576px){
+            section.container.py-5.mt-4{padding-top:1.5rem !important;}
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<section class="container py-5 mt-4">
+
+    <div class="text-center mb-5">
+
+        <h2>
+
+            Our Medicines
+
+        </h2>
+
+        <p class="text-muted">
+
+            Browse our complete medicine catalogue
+
+        </p>
+
+    </div>
+
+    <div class="row justify-content-center mb-5">
+
+        <div class="col-lg-6">
+
+            <input
+
+                    id="searchMedicine"
+
+                    class="form-control form-control-lg"
+
+                    placeholder="Search medicines...">
+
+        </div>
+
+    </div>
+
+    <div
+            id="medicineContainer"
+            class="row g-4">
+
+    </div>
+
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script th:src="@{/js/navbar.js}"></script>
+
+<script th:src="@{/js/medicine.js}"></script>
+
+</body>
+
+</html>

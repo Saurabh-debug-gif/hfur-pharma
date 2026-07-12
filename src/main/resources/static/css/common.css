@@ -1,0 +1,39 @@
+.toast{
+
+    border-radius:12px;
+
+    min-width:300px;
+
+}
+
+.loading{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    padding:50px;
+
+}
+
+.loading i{
+
+    font-size:35px;
+
+    color:#198754;
+
+    animation:spin 1s linear infinite;
+
+}
+
+@keyframes spin{
+
+    100%{
+
+        transform:rotate(360deg);
+
+    }
+
+}

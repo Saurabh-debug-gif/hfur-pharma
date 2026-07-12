@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Hfur Pharma | Home</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap -->
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <!-- Font Awesome -->
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <!-- CSS -->
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/home.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<!-- ================= HERO ================= -->
+
+<section id="home" class="hero">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-6 text-center text-lg-start">
+
+                <div class="hero-badge-row justify-content-center justify-content-lg-start">
+                    <span class="eyebrow"><i class="fa-solid fa-shield-heart"></i>&nbsp; India's Trusted Pharma Partner</span>
+                </div>
+
+                <h1>
+
+                    Trusted Pharmaceutical
+
+                    <span>
+
+                        Distribution, Perfected
+
+                    </span>
+
+                </h1>
+
+                <p class="lead">
+
+                    Delivering genuine medicines to hospitals, clinics and homes across India — backed by a verified supply chain, real-time tracking and a team that never sleeps on quality.
+
+                </p>
+
+                <div class="hero-cta-row justify-content-center justify-content-lg-start">
+
+                    <a th:href="@{/medicines}"
+                       class="btn btn-success btn-lg">
+
+                        Explore Medicines
+
+                    </a>
+
+                    <a href="tel:+919004541136" class="btn-ghost">
+                        <i class="fa-solid fa-phone"></i>
+                        Talk to us: 90045 41136
+                    </a>
+
+                </div>
+
+                <div class="hero-stats justify-content-center justify-content-lg-start">
+
+                    <div class="stat">
+                        <b>10,000+</b>
+                        <span>Medicines Listed</span>
+                    </div>
+
+                    <div class="stat">
+                        <b>500+</b>
+                        <span>Hospitals &amp; Clinics</span>
+                    </div>
+
+                    <div class="stat">
+                        <b>24 / 7</b>
+                        <span>Support Desk</span>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-6 mt-5 mt-lg-0">
+
+                <div class="hero-visual text-center">
+
+                    <div class="ring d-none d-lg-block"></div>
+
+                    <img
+
+                            th:src="@{/images/hero.png}"
+
+                            alt="Hfur Pharma Hero"
+
+                            class="hero-image img-fluid">
+
+                    <div class="floating-chip chip-1">
+                        <div class="chip-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                        <div>
+                            <strong>Same-Day Dispatch</strong>
+                            <span>On orders before 4 PM</span>
+                        </div>
+                    </div>
+
+                    <div class="floating-chip chip-2">
+                        <div class="chip-icon"><i class="fa-solid fa-award"></i></div>
+                        <div>
+                            <strong>GMP Certified</strong>
+                            <span>Quality assured stock</span>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= TRUST STRIP ================= -->
+
+<div class="trust-strip">
+    <div class="container">
+
+        <div class="trust-item">
+            <i class="fa-solid fa-certificate"></i>
+            <span>WHO-GMP Standards</span>
+        </div>
+
+        <div class="trust-item">
+            <i class="fa-solid fa-truck-fast"></i>
+            <span>Pan-India Delivery</span>
+        </div>
+
+        <div class="trust-item">
+            <i class="fa-solid fa-lock"></i>
+            <span>Secure Ordering</span>
+        </div>
+
+        <div class="trust-item">
+            <i class="fa-solid fa-headset"></i>
+            <span>24/7 Customer Care</span>
+        </div>
+
+        <div class="trust-item">
+            <i class="fa-solid fa-capsules"></i>
+            <span>100% Genuine Medicines</span>
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= FEATURED ================= -->
+
+<section id="featured"
+         class="container py-5">
+
+    <div class="section-toolbar">
+
+        <div>
+            <span class="eyebrow">Handpicked For You</span>
+            <h2 class="mb-0">Featured Medicines</h2>
+        </div>
+
+        <a th:href="@{/medicines}"
+
+           class="btn btn-outline-success">
+
+            View All Medicines <i class="fa-solid fa-arrow-right ms-1"></i>
+
+        </a>
+
+    </div>
+
+    <div
+
+            id="topMedicineContainer"
+
+            class="row g-4">
+
+    </div>
+
+</section>
+
+<!-- ================= MEDICINE SLIDER ================= -->
+
+<section id="products"
+         class="slider-section">
+
+    <div class="container">
+
+        <div class="section-head">
+            <span class="eyebrow">Full Catalogue</span>
+            <h2>Explore More Medicines</h2>
+            <p>A growing range of prescription and over-the-counter medicines, sourced and stored to pharmacy-grade standards.</p>
+        </div>
+
+    </div>
+
+    <div class="medicine-slider">
+
+        <div
+
+                id="sliderContainer"
+
+                class="slider-track">
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= ABOUT ================= -->
+
+<section id="about"
+         class="container py-5">
+
+    <div class="row align-items-center">
+
+        <div class="col-lg-6 text-center">
+
+            <div class="about-visual d-inline-block">
+
+                <img
+
+                        th:src="@{/images/about.png}"
+
+                        alt="About Hfur Pharma"
+
+                        class="img-fluid">
+
+                <div class="about-stat-card">
+                    <b>12+</b>
+                    <span>Years in Pharma Distribution</span>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 mt-5 mt-lg-0 about-copy">
+
+            <span class="eyebrow">Who We Are</span>
+
+            <h2>About Hfur Pharma</h2>
+
+            <p>
+
+                Hfur Pharma is committed to delivering premium pharmaceutical products, trusted healthcare solutions, and quality medicines across India.
+
+            </p>
+
+            <p>
+
+                Our mission is to make healthcare accessible through innovation, quality assurance, and an efficient distribution network built for hospitals, pharmacies and individual patients alike.
+
+            </p>
+
+            <ul class="about-points">
+
+                <li><i class="fa-solid fa-check"></i> Verified Suppliers</li>
+                <li><i class="fa-solid fa-check"></i> Cold-Chain Storage</li>
+                <li><i class="fa-solid fa-check"></i> Real-Time Order Tracking</li>
+                <li><i class="fa-solid fa-check"></i> Dedicated Support Team</li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= WHY CHOOSE US ================= -->
+
+<section class="why-section">
+
+    <div class="container">
+
+        <div class="section-head">
+            <span class="eyebrow">Why Hfur Pharma</span>
+            <h2>Built On Trust, Backed By Service</h2>
+            <p>Everything about how we work is designed around one thing — getting the right medicine to you, safely and on time.</p>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card">
+
+                    <div class="icon-wrap"><i class="fa-solid fa-truck-fast"></i></div>
+
+                    <h5>
+
+                        Fast Delivery
+
+                    </h5>
+
+                    <p>
+
+                        Timely, tracked delivery of pharmaceutical products, every time.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card">
+
+                    <div class="icon-wrap"><i class="fa-solid fa-capsules"></i></div>
+
+                    <h5>
+
+                        Quality Medicines
+
+                    </h5>
+
+                    <p>
+
+                        Genuine medicines sourced directly from trusted manufacturers.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card">
+
+                    <div class="icon-wrap"><i class="fa-solid fa-hospital"></i></div>
+
+                    <h5>
+
+                        Healthcare Partner
+
+                    </h5>
+
+                    <p>
+
+                        Proudly serving hospitals, pharmacies and clinics nationwide.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card">
+
+                    <div class="icon-wrap"><i class="fa-solid fa-headset"></i></div>
+
+                    <h5>
+
+                        Customer Support
+
+                    </h5>
+
+                    <p>
+
+                        Dedicated assistance on call and WhatsApp, whenever you need it.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card">
+
+                    <div class="icon-wrap"><i class="fa-solid fa-shield-halved"></i></div>
+
+                    <h5>
+
+                        Verified &amp; Secure
+
+                    </h5>
+
+                    <p>
+
+                        Every order is verified end-to-end for authenticity and safety.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card">
+
+                    <div class="icon-wrap"><i class="fa-solid fa-map-location-dot"></i></div>
+
+                    <h5>
+
+                        Pan-India Reach
+
+                    </h5>
+
+                    <p>
+
+                        A distribution network built to serve every corner of the country.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card">
+
+                    <div class="icon-wrap"><i class="fa-solid fa-boxes-stacked"></i></div>
+
+                    <h5>
+
+                        Bulk Ordering
+
+                    </h5>
+
+                    <p>
+
+                        Flexible ordering for institutions, clinics and pharmacies.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-6 col-lg-3">
+
+                <div class="feature-card">
+
+                    <div class="icon-wrap"><i class="fa-solid fa-hand-holding-heart"></i></div>
+
+                    <h5>
+
+                        Patient First
+
+                    </h5>
+
+                    <p>
+
+                        Every decision we make starts with what's best for the patient.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= CERTIFICATIONS ================= -->
+
+<div class="cert-strip">
+    <div class="container">
+        <div class="row g-4 text-center">
+
+            <div class="col-6 col-md-3">
+                <div class="cert-item"><i class="fa-solid fa-certificate"></i> WHO-GMP Certified</div>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <div class="cert-item"><i class="fa-solid fa-award"></i> ISO 9001:2015</div>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <div class="cert-item"><i class="fa-solid fa-stamp"></i> Govt. Licensed</div>
+            </div>
+
+            <div class="col-6 col-md-3">
+                <div class="cert-item"><i class="fa-solid fa-file-shield"></i> Drug License Verified</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- ================= TESTIMONIALS ================= -->
+
+<section class="testimonials">
+
+    <div class="container">
+
+        <div class="section-head">
+            <span class="eyebrow">Client Voices</span>
+            <h2>What Our Partners Say</h2>
+            <p>Hospitals, pharmacies and everyday customers trust Hfur Pharma to deliver — literally.</p>
+        </div>
+
+        <div class="row g-4">
+
+            <div class="col-md-4">
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"Ordering is simple and the delivery is always on time. Our clinic has relied on Hfur Pharma for over two years now."</p>
+                    <div class="author">
+                        <div class="avatar">RS</div>
+                        <div>
+                            <strong>Dr. R. Sharma</strong>
+                            <span>Clinic Owner, Pune</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"Genuine stock, fair pricing, and support that actually picks up the phone. Exactly what a pharmacy partner should be."</p>
+                    <div class="author">
+                        <div class="avatar">AK</div>
+                        <div>
+                            <strong>Anita Kulkarni</strong>
+                            <span>Pharmacy Owner, Nashik</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <p class="quote">"Bulk ordering for our hospital has never been this smooth. Tracking every shipment gives us real peace of mind."</p>
+                    <div class="author">
+                        <div class="avatar">VP</div>
+                        <div>
+                            <strong>Vikram Patil</strong>
+                            <span>Procurement Head, Nagpur</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- ================= CTA BANNER ================= -->
+
+<section class="cta-banner container py-5">
+
+    <div class="inner">
+
+        <div>
+            <h3>Need medicines delivered today?</h3>
+            <p>Browse our full catalogue or call our team directly — we'll take it from there.</p>
+        </div>
+
+        <a th:href="@{/medicines}" class="btn btn-light btn-lg">
+            Start Ordering <i class="fa-solid fa-arrow-right ms-1"></i>
+        </a>
+
+    </div>
+
+</section>
+
+<!-- ================= CONTACT ================= -->
+
+<section id="contact"
+         class="container py-5">
+
+    <div class="section-head">
+        <span class="eyebrow">Get In Touch</span>
+        <h2>Contact Us</h2>
+        <p>We'd love to hear from you — whether it's a bulk order, a query, or just a hello.</p>
+    </div>
+
+    <div class="contact-wrap">
+
+        <div class="contact-info">
+
+            <h3>Let's talk</h3>
+
+            <p>Our team responds fast — call, WhatsApp, or drop us a message and we'll get back within the day.</p>
+
+            <div class="contact-line">
+                <div class="ico"><i class="fa-solid fa-phone"></i></div>
+                <div>
+                    <a href="tel:+919004541136">+91 90045 41136</a>
+                    <small>Mon – Sat, 9 AM – 8 PM</small>
+                </div>
+            </div>
+
+            <div class="contact-line">
+                <div class="ico"><i class="fa-brands fa-whatsapp"></i></div>
+                <div>
+                    <a href="https://wa.me/918693030619" target="_blank" rel="noopener">+91 86930 30619</a>
+                    <small>Chat with us on WhatsApp</small>
+                </div>
+            </div>
+
+            <div class="contact-line">
+                <div class="ico"><i class="fa-solid fa-envelope"></i></div>
+                <div>
+                    <span class="txt">support@hfurpharma.com</span>
+                    <small>We reply within 24 hours</small>
+                </div>
+            </div>
+
+        </div>
+
+        <form id="contactForm">
+
+            <div class="row">
+
+                <div class="col-md-6">
+
+                    <input
+
+                            type="text"
+
+                            id="name"
+
+                            class="form-control mb-3"
+
+                            placeholder="Full Name"
+
+                            required>
+
+                </div>
+
+                <div class="col-md-6">
+
+                    <input
+
+                            type="email"
+
+                            id="email"
+
+                            class="form-control mb-3"
+
+                            placeholder="Email Address"
+
+                            required>
+
+                </div>
+
+            </div>
+
+            <input
+
+                    type="tel"
+
+                    id="phone"
+
+                    class="form-control mb-3"
+
+                    placeholder="Phone Number"
+
+                    required>
+
+            <textarea
+
+                    id="message"
+
+                    rows="5"
+
+                    class="form-control mb-3"
+
+                    placeholder="Write your message..."
+
+                    required></textarea>
+
+            <button
+
+                    type="submit"
+
+                    class="btn btn-success">
+
+                Send Enquiry
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<!-- ================= FOOTER ================= -->
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- ================= JS ================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script th:src="@{/js/navbar.js}"></script>
+
+<script th:src="@{/js/home.js}"></script>
+
+<script th:src="@{/js/app.js}"></script>
+
+</body>
+
+</html>

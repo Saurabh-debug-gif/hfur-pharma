@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+
+<!-- Utility bar: contact numbers. Purely additive markup — no IDs here, so navbar.js is unaffected -->
+<div class="topbar d-none d-sm-block">
+    <div class="container d-flex justify-content-end">
+        <a href="tel:+919004541136">
+            <i class="fa-solid fa-phone"></i>
+            +91 90045 41136
+        </a>
+        <a class="topbar-wa" href="https://wa.me/918693030619" target="_blank" rel="noopener">
+            <i class="fa-brands fa-whatsapp"></i>
+            +91 86930 30619
+        </a>
+    </div>
+</div>
+
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-success">
+
+    <div class="container">
+
+        <a class="navbar-brand" th:href="@{/}">
+            Hfur Pharma
+        </a>
+
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav">
+
+            <span class="navbar-toggler-icon"></span>
+
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/">
+                        Home
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="/medicines">
+                        Medicines
+                    </a>
+                </li>
+
+                <!-- Before Login -->
+                <li class="nav-item" id="loginNav">
+                    <a class="nav-link" href="/login">
+                        Login
+                    </a>
+                </li>
+
+                <li class="nav-item" id="registerNav">
+                    <a class="nav-link" href="/register">
+                        Register
+                    </a>
+                </li>
+
+                <!-- After Login -->
+                <li class="nav-item d-none" id="dashboardNav">
+                    <a class="nav-link" id="dashboardLink">
+                        Dashboard
+                    </a>
+                </li>
+
+                <!-- Customer only -->
+                <li class="nav-item d-none" id="cartNav">
+                    <a class="nav-link" href="/customer/cart">
+                        <i class="fa-solid fa-cart-shopping"></i>
+                        Cart
+                    </a>
+                </li>
+
+                <li class="nav-item d-none" id="enquiryNav">
+                    <a class="nav-link" href="/#contact">
+                        <i class="fa-solid fa-comment-dots"></i>
+                        Enquiry
+                    </a>
+                </li>
+
+                <li class="nav-item d-none" id="logoutNav">
+                    <a class="nav-link" href="#" onclick="logout()">
+                        Logout
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+
+    </div>
+
+</nav>
+
+<!-- Floating contact widget: fixed position, purely visual, no IDs — cannot interfere with any JS -->
+<div class="floating-contact">
+    <a href="https://wa.me/918693030619" target="_blank" rel="noopener" class="fc-btn fc-wa" aria-label="Chat on WhatsApp">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+    <a href="tel:+919004541136" class="fc-btn fc-call" aria-label="Call us">
+        <i class="fa-solid fa-phone"></i>
+    </a>
+</div>
+
+</body>
+</html>

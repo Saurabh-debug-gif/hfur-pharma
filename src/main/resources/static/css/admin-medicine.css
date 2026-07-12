@@ -1,0 +1,57 @@
+body{
+
+    background:#f5f7fb;
+
+}
+
+table{
+
+    background:white;
+
+}
+
+table img{
+
+    width:70px;
+
+    height:70px;
+
+    object-fit:contain;
+
+}
+
+.modal-content{
+
+    border-radius:15px;
+
+}
+
+.btn-success{
+
+    border-radius:8px;
+
+}
+
+@media(max-width:768px){
+
+    h2{
+
+        font-size:24px;
+
+    }
+
+    .table{
+
+        font-size:13px;
+
+    }
+
+    table img{
+
+        width:55px;
+
+        height:55px;
+
+    }
+
+}

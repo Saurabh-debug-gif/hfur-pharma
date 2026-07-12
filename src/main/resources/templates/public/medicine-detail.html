@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <title>Medicine Details | Hfur Pharma</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+    <link rel="stylesheet"
+          th:href="@{/css/navbar.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/medicine-detail.css}">
+
+    <link rel="stylesheet"
+          th:href="@{/css/footer.css}">
+
+    <!-- ============= PREMIUM UI ENHANCEMENT LAYER =============
+         Scoped, additive styles only. Does not touch/override
+         existing medicine-detail.css / navbar.css / footer.css,
+         so nothing wired to JS is affected. -->
+    <style>
+        :root{
+            --hp-green-900:#0b3d2e;
+            --hp-green-700:#0f7a4c;
+            --hp-green-600:#12a463;
+            --hp-green-500:#1abc7b;
+            --hp-green-100:#e7f8f0;
+            --hp-white:#ffffff;
+            --hp-ink:#0f1f1a;
+            --hp-muted:#5c6d67;
+        }
+
+        body{
+            font-family:'Inter', sans-serif;
+            color:var(--hp-ink);
+            background:var(--hp-white);
+        }
+
+        h1, h2, h3, h4, h5, h6{
+            font-family:'Poppins', sans-serif;
+            font-weight:700;
+            letter-spacing:-0.01em;
+        }
+
+        section.container.py-5.mt-5{
+            background:
+                    radial-gradient(900px 400px at 90% -10%, rgba(26,188,123,0.12), transparent 60%);
+            border-radius:24px;
+            padding-top:3rem !important;
+            padding-bottom:3rem !important;
+        }
+
+        /* medicine-detail.css already sets .medicine-image max-width
+             and .price color/size — we only ADD to those, never
+             redefine the same properties, so nothing conflicts. */
+        .medicine-image{
+            border-radius:20px;
+            box-shadow:0 20px 40px rgba(15,61,46,0.14);
+            background:var(--hp-green-100);
+            padding:1.25rem;
+        }
+
+        #medicineName{
+            color:var(--hp-green-900);
+            font-size:clamp(1.6rem, 2.4vw, 2.2rem);
+        }
+
+        #medicineBrand{
+            font-weight:600;
+            letter-spacing:.02em;
+            text-transform:uppercase;
+            font-size:.9rem;
+            color:var(--hp-green-600) !important;
+        }
+
+        #medicineDescription{
+            font-size:1.02rem;
+        }
+
+        h6{
+            font-family:'Inter', sans-serif;
+            font-weight:600;
+            color:var(--hp-ink);
+        }
+
+        #medicineStock{
+            display:inline-block;
+            background:var(--hp-green-100);
+            color:var(--hp-green-700);
+            font-weight:700;
+            padding:.2rem .75rem;
+            border-radius:50px;
+        }
+
+        #addCartBtn{
+            background:linear-gradient(90deg, var(--hp-green-700), var(--hp-green-500));
+            border:none;
+            border-radius:50px;
+            padding:.9rem 2rem;
+            font-weight:600;
+            box-shadow:0 10px 24px rgba(15,122,76,0.28);
+            transition:transform .2s ease, box-shadow .2s ease;
+        }
+
+        #addCartBtn:hover{
+            transform:translateY(-2px);
+            box-shadow:0 14px 28px rgba(15,122,76,0.35);
+        }
+
+        .btn-outline-success{
+            border-radius:50px;
+            border-width:2px;
+            font-weight:600;
+            color:var(--hp-green-700);
+            border-color:var(--hp-green-600);
+            padding:.9rem 2rem;
+        }
+
+        .btn-outline-success:hover{
+            background:var(--hp-green-600);
+            border-color:var(--hp-green-600);
+        }
+
+        /* ---------- RELATED MEDICINES ---------- */
+        section.container.pb-5 h3{
+            color:var(--hp-green-900);
+            position:relative;
+            padding-bottom:.6rem;
+        }
+
+        section.container.pb-5 h3::after{
+            content:"";
+            position:absolute;
+            left:0;
+            bottom:0;
+            width:56px;
+            height:4px;
+            border-radius:4px;
+            background:linear-gradient(90deg, var(--hp-green-600), var(--hp-green-500));
+        }
+
+        /* medicine-detail.js injects .related-card elements — the
+             class already defined in medicine-detail.css. We only
+             ADD a border here; hover translateY animation from
+             medicine-detail.css keeps working untouched. */
+        .related-card{
+            border:1px solid rgba(15,122,76,0.08);
+        }
+
+        @media (max-width: 576px){
+            section.container.py-5.mt-5{padding-top:2rem !important; padding-bottom:2rem !important;}
+        }
+    </style>
+
+</head>
+
+<body>
+
+<div th:replace="~{fragments/navbar :: navbar}"></div>
+
+<section class="container py-5 mt-5">
+
+    <div class="row align-items-center">
+
+        <div class="col-lg-5 text-center">
+
+            <img
+
+                    id="medicineImage"
+
+                    class="img-fluid medicine-image">
+
+        </div>
+
+        <div class="col-lg-7">
+
+            <h2 id="medicineName"></h2>
+
+            <h5
+                    id="medicineBrand"
+                    class="text-success mb-3">
+
+            </h5>
+
+            <h3
+                    id="medicinePrice"
+                    class="price mb-3">
+
+            </h3>
+
+            <p
+                    id="medicineDescription">
+
+            </p>
+
+            <h6>
+
+                Stock :
+
+                <span id="medicineStock"></span>
+
+            </h6>
+
+            <div class="d-flex gap-3 flex-wrap mt-4">
+
+                <button
+
+                        id="addCartBtn"
+
+                        class="btn btn-success btn-lg">
+
+                    <i class="fa-solid fa-cart-shopping"></i>
+
+                    Add To Cart
+
+                </button>
+
+                <a
+
+                        href="/customer/cart"
+
+                        class="btn btn-outline-success btn-lg">
+
+                    View Cart
+
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+
+</section>
+
+<section class="container pb-5">
+
+    <h3 class="mb-4">
+
+        Related Medicines
+
+    </h3>
+
+    <div
+
+            id="relatedMedicines"
+
+            class="row">
+
+    </div>
+
+</section>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<script th:src="@{/js/navbar.js}"></script>
+
+<script th:src="@{/js/medicine-detail.js}"></script>
+
+</body>
+
+</html>
