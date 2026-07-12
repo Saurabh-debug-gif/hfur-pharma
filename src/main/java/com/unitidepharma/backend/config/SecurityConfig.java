@@ -20,7 +20,6 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
-
                 .csrf(csrf -> csrf.disable())
 
                 .cors(Customizer.withDefaults())
@@ -31,7 +30,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
 
                         // ==========================
-                        // Public HTML Pages
+                        // Public Pages
                         // ==========================
                         .requestMatchers(
                                 "/",
@@ -39,10 +38,7 @@ public class SecurityConfig {
                                 "/login",
                                 "/register",
                                 "/medicines",
-                                "/medicine/**",
-                                "/admin/**",
-                                "/customer/**",
-                                "/mr/**"
+                                "/medicine/**"
                         ).permitAll()
 
                         // ==========================
@@ -66,6 +62,21 @@ public class SecurityConfig {
                         ).permitAll()
 
                         // ==========================
+                        // Admin Pages
+                        // ==========================
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
+
+                        // ==========================
+                        // Customer Pages
+                        // ==========================
+                        .requestMatchers("/customer/**").hasRole("CUSTOMER")
+
+                        // ==========================
+                        // MR Pages
+                        // ==========================
+                        .requestMatchers("/mr/**").hasRole("MR")
+
+                        // ==========================
                         // Protected APIs
                         // ==========================
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
@@ -76,8 +87,8 @@ public class SecurityConfig {
                 )
 
                 .formLogin(form -> form.disable())
-                .logout(logout -> logout.disable())
-                .httpBasic(basic -> basic.disable());
+                .httpBasic(basic -> basic.disable())
+                .logout(logout -> logout.disable());
 
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
 
