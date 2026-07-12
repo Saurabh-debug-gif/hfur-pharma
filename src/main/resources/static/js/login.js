@@ -2,7 +2,7 @@
 // HUFUR PHARMA LOGIN
 // ================================
 
-const API_URL = "http://localhost:8080/api/auth/login";
+const API_URL = "http://https://hfur-pharma-1.onrender.com/api/auth/login";
 
 const loginForm = document.getElementById("loginForm");
 

@@ -1,4 +1,4 @@
-const API_BASE = "http://localhost:8080/api/public";
+const API_BASE = "http://https://hfur-pharma-1.onrender.com/api/public";
 
 /* ===========================
       LOAD TOP 10 MEDICINES

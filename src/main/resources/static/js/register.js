@@ -1,4 +1,4 @@
-const API = "http://localhost:8080/api/auth/register";
+const API = "http://https://hfur-pharma-1.onrender.com/api/auth/register";
 
 document.getElementById("registerForm")
 

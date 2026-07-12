@@ -2,7 +2,7 @@ const token = localStorage.getItem("token");
 
 const mrId = window.location.pathname.split("/").pop();
 
-const API = "http://localhost:8080/api/admin/visits/" + mrId;
+const API = "http://https://hfur-pharma-1.onrender.com/api/admin/visits/" + mrId;
 
 const table = document.getElementById("visitTable");
 
