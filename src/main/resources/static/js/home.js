@@ -156,3 +156,125 @@
     }, { passive: true });
 
 })();
+// =====================================================
+// LOAD FEATURED MEDICINES ON HOME PAGE
+// =====================================================
+
+(async function () {
+
+    const API = "https://hfur-pharma-1.onrender.com/api/public/medicines";
+
+    const topContainer = document.getElementById("topMedicineContainer");
+    const sliderContainer = document.getElementById("sliderContainer");
+
+    if (!topContainer && !sliderContainer) return;
+
+    try {
+
+        const response = await axios.get(API);
+
+        let medicines = [];
+
+        if (Array.isArray(response.data)) {
+
+            medicines = response.data;
+
+        } else if (response.data.content) {
+
+            medicines = response.data.content;
+
+        }
+
+        // -----------------------------
+        // Featured Medicines
+        // -----------------------------
+
+        if (topContainer) {
+
+            topContainer.innerHTML = "";
+
+            medicines.slice(0, 8).forEach(m => {
+
+                topContainer.innerHTML += `
+                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+
+                    <div class="card h-100 shadow-sm">
+
+                        <img
+                            src="${m.imageUrl || 'https://dummyimage.com/300x300/cccccc/000000&text=No+Image'}"
+                            class="card-img-top"
+                            style="height:220px;object-fit:cover;"
+                            onerror="this.src='https://dummyimage.com/300x300/cccccc/000000&text=No+Image'">
+
+                        <div class="card-body d-flex flex-column">
+
+                            <h5>${m.name}</h5>
+
+                            <p class="text-muted">${m.brand ?? ""}</p>
+
+                            <h6 class="text-success">₹${m.price}</h6>
+
+                            <a href="/medicine/${m.id}"
+                               class="btn btn-success mt-auto">
+
+                                View Details
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                `;
+
+            });
+
+        }
+
+        // -----------------------------
+        // Medicine Slider
+        // -----------------------------
+
+        if (sliderContainer) {
+
+            sliderContainer.innerHTML = "";
+
+            medicines.forEach(m => {
+
+                sliderContainer.innerHTML += `
+                <div class="slider-item">
+
+                    <div class="card shadow-sm">
+
+                        <img
+                            src="${m.imageUrl || 'https://dummyimage.com/250x250/cccccc/000000&text=No+Image'}"
+                            style="height:170px;object-fit:cover;"
+                            onerror="this.src='https://dummyimage.com/250x250/cccccc/000000&text=No+Image'">
+
+                        <div class="card-body text-center">
+
+                            <h6>${m.name}</h6>
+
+                            <p>₹${m.price}</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+                `;
+
+            });
+
+        }
+
+    }
+
+    catch (e) {
+
+        console.error("Unable to load medicines", e);
+
+    }
+
+})();
