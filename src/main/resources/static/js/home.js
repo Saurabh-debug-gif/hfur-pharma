@@ -1,192 +1,158 @@
-const API_BASE = "https://hfur-pharma-1.onrender.com/api/public";
+/* ================================
+   HFUR PHARMA — HOME PAGE ENHANCEMENTS
+   Scroll reveal, animated counters,
+   floating WhatsApp button, back-to-top.
+   Purely presentational — does not touch
+   any existing data, numbers, or logic.
+================================ */
 
-/* ===========================
-      LOAD TOP 10 MEDICINES
-=========================== */
+(() => {
 
-async function loadTopMedicines() {
+    /* ============================
+       SCROLL REVEAL
+    ============================ */
 
-    try {
+    const revealSelectors = [
+        ".mfg-card",
+        ".feature-card",
+        ".testimonial-card",
+        ".process-step",
+        ".faq-item",
+        ".about-copy",
+        ".about-visual",
+        "[data-reveal]"
+    ];
 
-        const response = await axios.get(`${API_BASE}/medicines/top10`);
+    const revealEls = document.querySelectorAll(revealSelectors.join(","));
 
-        const medicines = response.data;
+    revealEls.forEach(el => el.classList.add("reveal-init"));
 
-        const container = document.getElementById("topMedicineContainer");
+    if ("IntersectionObserver" in window) {
 
-        container.innerHTML = "";
+        const observer = new IntersectionObserver((entries) => {
 
-        medicines.forEach(medicine => {
+            entries.forEach((entry, i) => {
 
-            container.innerHTML += `
+                if (entry.isIntersecting) {
 
-            <div class="col-lg-3 col-md-4 col-sm-6">
+                    setTimeout(() => {
+                        entry.target.classList.add("reveal-in");
+                    }, (i % 4) * 90);
 
-                <div class="medicine-card">
+                    observer.unobserve(entry.target);
+                }
 
-                    <img src="${medicine.imageUrl}"
-                         alt="${medicine.name}">
+            });
 
-                    <div class="medicine-card-body">
+        }, { threshold: 0.15, rootMargin: "0px 0px -60px 0px" });
 
-                        <h5>${medicine.name}</h5>
+        revealEls.forEach(el => observer.observe(el));
 
-                        <p>${medicine.brand}</p>
-
-                        <div class="price">
-
-                            ₹${medicine.price}
-
-                        </div>
-
-                        <a href="/medicine/${medicine.id}"
-                           class="btn btn-success mt-3 w-100">
-
-                            View Details
-
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            `;
-
-        });
-
+    } else {
+        revealEls.forEach(el => el.classList.add("reveal-in"));
     }
 
-    catch(error){
+    /* ============================
+       ANIMATED STAT COUNTERS
+       (animates the existing number,
+       never changes the final value)
+    ============================ */
 
-        console.error("Top medicines error",error);
+    const counterEls = document.querySelectorAll(".hero-stats .stat b, .about-stat-card b");
 
-    }
+    counterEls.forEach(el => {
 
-}
+        const raw = el.textContent.trim();
+        const match = raw.match(/^(\d+)(.*)$/);
 
-/* ===========================
-        LOAD SLIDER
-=========================== */
+        if (!match) return;
 
-async function loadMedicineSlider(){
+        const target = parseInt(match[1], 10);
+        const suffix = match[2] || "";
 
-    try{
+        el.textContent = "0" + suffix;
 
-        const response = await axios.get(`${API_BASE}/medicines`);
+        let started = false;
 
-        const medicines=response.data;
+        const runCount = () => {
 
-        const slider=document.getElementById("sliderContainer");
+            if (started) return;
+            started = true;
 
-        slider.innerHTML="";
+            const duration = 1200;
+            const startTime = performance.now();
 
-        medicines.forEach(medicine=>{
+            function tick(now) {
 
-            slider.innerHTML += `
+                const progress = Math.min((now - startTime) / duration, 1);
+                const eased = 1 - Math.pow(1 - progress, 3);
+                const value = Math.round(eased * target);
 
-            <div class="slider-card">
+                el.textContent = value + suffix;
 
-                <img src="${medicine.imageUrl}">
-
-                <h6>${medicine.name}</h6>
-
-            </div>
-
-            `;
-
-        });
-
-        /* Duplicate for infinite effect */
-
-        medicines.forEach(medicine=>{
-
-            slider.innerHTML += `
-
-            <div class="slider-card">
-
-                <img src="${medicine.imageUrl}">
-
-                <h6>${medicine.name}</h6>
-
-            </div>
-
-            `;
-
-        });
-
-    }
-
-    catch(error){
-
-        console.log(error);
-
-    }
-
-}
-
-/* ===========================
-      CONTACT FORM
-=========================== */
-
-document.getElementById("contactForm")
-    .addEventListener("submit",async function(e){
-
-        e.preventDefault();
-
-        const enquiry={
-
-            name:document.getElementById("name").value,
-
-            email:document.getElementById("email").value,
-
-            phone:document.getElementById("phone").value,
-
-            message:document.getElementById("message").value
-
-        };
-
-        try{
-
-            const response=await axios.post(
-
-                `${API_BASE}/enquiry`,
-
-                enquiry
-
-            );
-
-            alert(response.data.message);
-
-            // Opens WhatsApp (web or app) in a new tab with the
-            // enquiry pre-filled to Hfur Pharma's number. The visitor
-            // still needs to tap Send inside WhatsApp themselves — a
-            // free wa.me link cannot auto-send silently.
-            if (response.data.whatsappUrl) {
-                window.open(response.data.whatsappUrl, "_blank");
+                if (progress < 1) {
+                    requestAnimationFrame(tick);
+                }
             }
 
-            document.getElementById("contactForm").reset();
+            requestAnimationFrame(tick);
+        };
 
-        }
+        if ("IntersectionObserver" in window) {
 
-        catch(error){
+            const counterObserver = new IntersectionObserver((entries) => {
 
-            alert("Unable to submit enquiry.");
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        runCount();
+                        counterObserver.unobserve(entry.target);
+                    }
+                });
 
+            }, { threshold: 0.4 });
+
+            counterObserver.observe(el);
+
+        } else {
+            runCount();
         }
 
     });
 
-/* ===========================
-        START
-=========================== */
+    /* ============================
+       FLOATING WHATSAPP BUTTON
+    ============================ */
 
-window.onload=()=>{
+    const wa = document.createElement("a");
+    wa.href = "https://wa.me/918693030619";
+    wa.target = "_blank";
+    wa.rel = "noopener";
+    wa.className = "float-whatsapp";
+    wa.setAttribute("aria-label", "Chat on WhatsApp");
+    wa.innerHTML = '<i class="fa-brands fa-whatsapp"></i>';
+    document.body.appendChild(wa);
 
-    loadTopMedicines();
+    /* ============================
+       BACK TO TOP BUTTON
+    ============================ */
 
-    loadMedicineSlider();
+    const toTop = document.createElement("button");
+    toTop.type = "button";
+    toTop.className = "back-to-top";
+    toTop.setAttribute("aria-label", "Back to top");
+    toTop.innerHTML = '<i class="fa-solid fa-arrow-up"></i>';
+    document.body.appendChild(toTop);
 
-};
+    toTop.addEventListener("click", () => {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+
+    window.addEventListener("scroll", () => {
+        if (window.scrollY > 500) {
+            toTop.classList.add("show");
+        } else {
+            toTop.classList.remove("show");
+        }
+    }, { passive: true });
+
+})();

@@ -86,6 +86,12 @@ public class JwtFilter extends OncePerRequestFilter {
                     );
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
+            System.out.println("===== JWT AUTH =====");
+            System.out.println("URI: " + request.getRequestURI());
+            System.out.println("USER: " + user.getEmail());
+            System.out.println("ROLE: " + user.getRole());
+            System.out.println("AUTHORITIES: " + authentication.getAuthorities());
+            System.out.println("====================");
 
         } catch (JwtException e) {
 

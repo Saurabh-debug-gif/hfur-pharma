@@ -20,12 +20,6 @@ public class AdminMedicineController {
     private final MedicineService medicineService;
     private final ImageService imageService; // ✅ FIX: inject service
 
-    // ✅ Add Medicine
-    @PostMapping
-    public ResponseEntity<Medicine> add(@RequestBody MedicineRequest request) {
-        return ResponseEntity.ok(medicineService.addMedicine(request));
-    }
-
     @PostMapping("/upload")
     public ResponseEntity<String> uploadImage(
             @RequestParam("file") MultipartFile file,
@@ -39,6 +33,15 @@ public class AdminMedicineController {
 
         return ResponseEntity.ok(imageService.uploadImage(file));
     }
+    // ✅ Add Medicine
+    @PostMapping
+    public ResponseEntity<Medicine> add(@RequestBody MedicineRequest request) {
+
+        System.out.println("===== ADD MEDICINE HIT =====");
+
+        return ResponseEntity.ok(medicineService.addMedicine(request));
+    }
+
     // ✅ Add Stock
     @PostMapping("/{id}/add-stock")
     public String addStock(@PathVariable Long id,
@@ -47,6 +50,7 @@ public class AdminMedicineController {
         medicineService.addStock(id, quantity);
         return "Stock added successfully";
     }
+
     // ✅ Update
     @PutMapping("/{id}")
     public ResponseEntity<Medicine> update(@PathVariable Long id,
@@ -67,4 +71,3 @@ public class AdminMedicineController {
         return ResponseEntity.ok(medicineService.getAllMedicines());
     }
 }
-
