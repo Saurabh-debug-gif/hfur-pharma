@@ -1,15 +1,11 @@
 package com.unitidepharma.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "orders")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Order {
 
     @Id
@@ -27,4 +23,47 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Order() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public double getTotalAmount() {
+        return totalAmount;
+    }
+
+    public void setTotalAmount(double totalAmount) {
+        this.totalAmount = totalAmount;
+    }
+
+    public OrderStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
