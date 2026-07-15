@@ -1,6 +1,7 @@
 package com.unitidepharma.backend.service;
 
 import com.unitidepharma.backend.entity.MRLocation;
+import com.unitidepharma.backend.entity.Role;
 import com.unitidepharma.backend.entity.User;
 import com.unitidepharma.backend.repository.MRLocationRepository;
 import com.unitidepharma.backend.repository.UserRepository;
@@ -19,8 +20,7 @@ public class MRTrackingService {
     // ✅ Get latest location
     public MRLocation getLatestLocation(Long mrId) {
 
-        User mr = userRepository.findById(mrId)
-                .orElseThrow(() -> new RuntimeException("MR not found"));
+        User mr = getMr(mrId);
 
         return mrLocationRepository.findTopByMrIdOrderByTimestampDesc(mr.getId());
     }
@@ -28,9 +28,18 @@ public class MRTrackingService {
     // ✅ Get full history
     public List<MRLocation> getLocationHistory(Long mrId) {
 
+        User mr = getMr(mrId);
+
+        return mrLocationRepository.findByMrIdOrderByTimestampDesc(mr.getId());
+    }
+
+    private User getMr(Long mrId) {
         User mr = userRepository.findById(mrId)
                 .orElseThrow(() -> new RuntimeException("MR not found"));
 
-        return mrLocationRepository.findByMrIdOrderByTimestampDesc(mr.getId());
+        if (mr.getRole() != Role.MR) {
+            throw new IllegalArgumentException("Selected user is not an MR");
+        }
+        return mr;
     }
 }

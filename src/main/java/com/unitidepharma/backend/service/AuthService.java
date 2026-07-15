@@ -31,12 +31,12 @@ public class AuthService {
             throw new RuntimeException("Email already registered");
         }
 
-        Role role;
+        Role role = Role.CUSTOMER;
 
-        try {
-            role = Role.valueOf(request.getRole().trim().toUpperCase());
-        } catch (Exception e) {
-            throw new RuntimeException("Invalid role. Use ADMIN / CUSTOMER / MR");
+        if (request.getRole() != null &&
+                !request.getRole().isBlank() &&
+                !Role.CUSTOMER.name().equalsIgnoreCase(request.getRole().trim())) {
+            throw new RuntimeException("Public registration is available only for customers");
         }
 
         User user = new User();
@@ -73,6 +73,10 @@ public class AuthService {
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid password");
+        }
+
+        if (!user.isActive()) {
+            throw new RuntimeException("Your account is inactive. Please contact the administrator");
         }
 
         String token = jwtUtil.generateToken(

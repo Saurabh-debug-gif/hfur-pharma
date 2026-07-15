@@ -30,10 +30,6 @@ public class AuthController {
     // =========================
     @PostMapping("/login")
     public AuthResponse login(@RequestBody LoginRequest request) {
-
-        System.out.println("=========== LOGIN API HIT ===========");
-        System.out.println(request.getEmail());
-
         return authService.login(request);
 
     }

@@ -1,5 +1,6 @@
 package com.unitidepharma.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -24,6 +25,7 @@ public class MRLocation {
 
     @ManyToOne
     @JoinColumn(name = "mr_id")
+    @JsonIgnore
     private User mr;
 
     // ✅ Set automatically before insert

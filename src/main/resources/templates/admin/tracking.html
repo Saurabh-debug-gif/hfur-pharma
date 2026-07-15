@@ -31,11 +31,17 @@
 
 <section class="container py-5 mt-5">
 
-    <h2 class="mb-4">
+    <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-4">
+        <div>
+            <span class="tracking-kicker">Field monitoring</span>
+            <h2 class="mb-1">Medical Representative Tracking</h2>
+            <p class="text-muted mb-0" id="trackingMessage">Latest location refreshes automatically.</p>
+        </div>
 
-        Medical Representative Tracking
-
-    </h2>
+        <button type="button" class="btn btn-outline-success" id="refreshTrackingBtn">
+            <i class="fa-solid fa-rotate"></i> Refresh now
+        </button>
+    </div>
 
     <div class="card shadow">
 
@@ -73,6 +79,10 @@
 
             </p>
 
+            <a id="latestMapLink" class="btn btn-success d-none" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-map-location-dot"></i> Open latest location in Maps
+            </a>
+
         </div>
 
     </div>
@@ -99,6 +109,8 @@
 
                     <th>Date & Time</th>
 
+                    <th>Map</th>
+
                 </tr>
 
                 </thead>
@@ -119,8 +131,6 @@
 <script th:src="@{/js/navbar.js}"></script>
 
 <script th:src="@{/js/admin-tracking.js}"></script>
-
-</body>
 
 </body>
 

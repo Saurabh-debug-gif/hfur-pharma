@@ -74,9 +74,15 @@ public class JwtFilter extends OncePerRequestFilter {
             User user = userRepository.findByEmailIgnoreCase(email)
                     .orElseThrow(() -> new RuntimeException("User not found"));
 
+            if (!user.isActive()) {
+                SecurityContextHolder.clearContext();
+                filterChain.doFilter(request, response);
+                return;
+            }
+
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
-                            user,
+                            user.getEmail(),
                             null,
                             List.of(
                                     new SimpleGrantedAuthority(
@@ -86,12 +92,6 @@ public class JwtFilter extends OncePerRequestFilter {
                     );
 
             SecurityContextHolder.getContext().setAuthentication(authentication);
-            System.out.println("===== JWT AUTH =====");
-            System.out.println("URI: " + request.getRequestURI());
-            System.out.println("USER: " + user.getEmail());
-            System.out.println("ROLE: " + user.getRole());
-            System.out.println("AUTHORITIES: " + authentication.getAuthorities());
-            System.out.println("====================");
 
         } catch (JwtException e) {
 

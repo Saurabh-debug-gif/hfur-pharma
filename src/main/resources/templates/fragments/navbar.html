@@ -20,13 +20,22 @@
     </div>
 </div>
 
-<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-dark bg-success">
+<nav th:fragment="navbar" class="navbar navbar-expand-lg navbar-light">
 
     <div class="container">
 
         <a class="navbar-brand" th:href="@{/}">
 
-            <img th:src="@{/images/logo.png}" class="brand-logo" alt="Hfur Pharma">
+            <img src="/images/logo.png"
+                 th:src="@{/images/logo.png}"
+                 class="brand-logo"
+                 alt="Hfur Pharma"
+                 onerror="this.classList.add('d-none');this.nextElementSibling.classList.remove('d-none')">
+
+            <span class="brand-fallback d-none" aria-label="Hfur Pharma">
+                <span class="fallback-mark">H</span>
+                <span>Hfur <strong>Pharma</strong></span>
+            </span>
 
         </a>
 

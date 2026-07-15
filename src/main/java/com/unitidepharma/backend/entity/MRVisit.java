@@ -1,27 +1,32 @@
-    package com.unitidepharma.backend.entity;
+package com.unitidepharma.backend.entity;
 
-    import jakarta.persistence.*;
-    import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
-    import java.time.LocalDateTime;
+import java.time.LocalDateTime;
 
-    @Entity
-    @Data
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public class MRVisit {
+@Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class MRVisit {
 
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-        private String shopName;
+    private String shopName;
 
-        private String notes;
+    @Column(columnDefinition = "TEXT")
+    private String notes;
 
-        private LocalDateTime timestamp = LocalDateTime.now();
+    private LocalDateTime timestamp = LocalDateTime.now();
 
-        @ManyToOne
-        @JoinColumn(name = "mr_id")
-        private User mr;
-    }
+    @ManyToOne
+    @JoinColumn(name = "mr_id")
+    @JsonIgnore
+    private User mr;
+}

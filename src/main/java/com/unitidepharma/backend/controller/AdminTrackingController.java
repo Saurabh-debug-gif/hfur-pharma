@@ -3,6 +3,7 @@ package com.unitidepharma.backend.controller;
 import com.unitidepharma.backend.entity.MRLocation;
 import com.unitidepharma.backend.service.MRTrackingService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,8 +17,9 @@ public class AdminTrackingController {
 
     // ✅ Latest location
     @GetMapping("/latest/{mrId}")
-    public MRLocation getLatest(@PathVariable Long mrId) {
-        return trackingService.getLatestLocation(mrId);
+    public ResponseEntity<MRLocation> getLatest(@PathVariable Long mrId) {
+        MRLocation latest = trackingService.getLatestLocation(mrId);
+        return latest == null ? ResponseEntity.noContent().build() : ResponseEntity.ok(latest);
     }
 
     // ✅ Full history

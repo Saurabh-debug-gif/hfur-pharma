@@ -30,27 +30,31 @@
 
     </h2>
 
-    <table class="table table-bordered mt-4">
+    <div class="table-responsive">
 
-        <thead class="table-success">
+        <table class="table table-bordered mt-4 align-middle">
 
-        <tr>
+            <thead class="table-success">
 
-            <th>Shop</th>
+            <tr>
 
-            <th>Notes</th>
+                <th>Shop</th>
 
-            <th>Date</th>
+                <th>Notes</th>
 
-        </tr>
+                <th>Date</th>
 
-        </thead>
+            </tr>
 
-        <tbody id="visitTable">
+            </thead>
 
-        </tbody>
+            <tbody id="visitTable">
 
-    </table>
+            </tbody>
+
+        </table>
+
+    </div>
 
 </section>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -58,8 +62,6 @@
 <script th:src="@{/js/navbar.js}"></script>
 
 <script th:src="@{/js/admin-visits.js}"></script>
-
-</body>
 
 </body>
 

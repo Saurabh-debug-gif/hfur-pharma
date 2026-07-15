@@ -4,9 +4,22 @@ body{
 
 }
 
+.tracking-kicker{
+    color:#0f7a4c;
+    display:block;
+    font-size:.72rem;
+    font-weight:800;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+}
+
 .card{
 
     border-radius:15px;
+
+    border:1px solid #dce9e3;
+
+    box-shadow:0 14px 36px rgba(11,61,46,.08) !important;
 
 }
 
@@ -24,4 +37,11 @@ body{
 
     }
 
+}
+
+.btn-success{
+    background:#0f7a4c;
+    border-color:#0f7a4c;
+    border-radius:10px;
+    font-weight:700;
 }

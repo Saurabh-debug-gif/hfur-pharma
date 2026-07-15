@@ -1,138 +1,137 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
-
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MR Dashboard | Hfur Pharma</title>
 
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1.0">
-
-    <title>Customer Dashboard | Hfur Pharma</title>
-
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-          rel="stylesheet">
-
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
-
-    <link rel="stylesheet"
-          th:href="@{/css/navbar.css}">
-
-    <link rel="stylesheet"
-          th:href="@{/css/customer-dashboard.css}">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" th:href="@{/css/mr-dashboard.css}">
 </head>
-
 <body>
 
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
-<section class="dashboard">
-
+<main class="mr-dashboard">
     <div class="container">
+        <section class="mr-welcome">
+            <div>
+                <span class="mr-kicker">Medical representative workspace</span>
+                <h1>Welcome, <span id="mrName">MR</span></h1>
+                <p>Share your field location and keep every doctor, clinic or pharmacy visit recorded.</p>
+            </div>
+            <span class="account-pill"><i class="fa-solid fa-shield-check"></i> Secure MR session</span>
+        </section>
 
-        <div class="welcome-card">
+        <div class="row g-4">
+            <div class="col-lg-5">
+                <section class="mr-panel tracking-panel h-100">
+                    <div class="panel-heading">
+                        <div class="panel-icon"><i class="fa-solid fa-location-crosshairs"></i></div>
+                        <div>
+                            <span class="panel-label">Field tracking</span>
+                            <h2>Live location</h2>
+                        </div>
+                    </div>
 
-            <h2>
+                    <div class="tracking-state" id="trackingState">
+                        <span class="state-dot"></span>
+                        <span id="locationStatus">Tracking is stopped</span>
+                    </div>
 
-                Welcome,
+                    <dl class="location-details">
+                        <div>
+                            <dt>Last coordinates</dt>
+                            <dd id="locationCoordinates">Not shared yet</dd>
+                        </div>
+                        <div>
+                            <dt>Last updated</dt>
+                            <dd id="lastLocationTime">—</dd>
+                        </div>
+                    </dl>
 
-                <span id="customerName"></span>
+                    <div class="d-grid gap-2">
+                        <button type="button" class="btn btn-success btn-lg" id="locationBtn">
+                            <i class="fa-solid fa-play"></i> Start live tracking
+                        </button>
+                        <a id="myMapLink" class="btn btn-outline-success d-none" target="_blank" rel="noopener noreferrer">
+                            <i class="fa-solid fa-map-location-dot"></i> Open last location
+                        </a>
+                    </div>
 
-                👋
+                    <p class="privacy-note"><i class="fa-solid fa-circle-info"></i> Tracking works while this dashboard remains open and location permission is enabled.</p>
+                </section>
+            </div>
 
-            </h2>
+            <div class="col-lg-7">
+                <section class="mr-panel">
+                    <div class="panel-heading">
+                        <div class="panel-icon"><i class="fa-solid fa-clipboard-check"></i></div>
+                        <div>
+                            <span class="panel-label">Daily field activity</span>
+                            <h2>Log a visit</h2>
+                        </div>
+                    </div>
 
-            <p>
+                    <form id="visitForm">
+                        <div class="mb-3">
+                            <label class="form-label" for="shopName">Doctor, clinic, pharmacy or shop</label>
+                            <input id="shopName" class="form-control" maxlength="160" placeholder="Enter visit name" required>
+                        </div>
 
-                Welcome to your Hfur Pharma dashboard.
+                        <div class="mb-3">
+                            <label class="form-label" for="notes">Visit notes</label>
+                            <textarea id="notes" class="form-control" rows="5" placeholder="Discussion, order requirement or follow-up notes"></textarea>
+                        </div>
 
-            </p>
-
+                        <button type="submit" class="btn btn-success" id="visitSubmitBtn">
+                            <i class="fa-solid fa-check"></i> Save visit
+                        </button>
+                    </form>
+                </section>
+            </div>
         </div>
 
-        <div class="row mt-5">
-
-            <div class="col-lg-3 col-md-6 mb-4">
-
-                <a href="/medicines" class="dashboard-card">
-
-                    <i class="fa-solid fa-capsules"></i>
-
-                    <h5>
-
-                        Browse Medicines
-
-                    </h5>
-
-                </a>
-
+        <section class="mr-panel visits-panel mt-4">
+            <div class="panel-heading panel-heading-row">
+                <div class="d-flex align-items-center gap-3">
+                    <div class="panel-icon"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                    <div>
+                        <span class="panel-label">Your records</span>
+                        <h2>Recent visits</h2>
+                    </div>
+                </div>
+                <button type="button" class="btn btn-light btn-sm" id="refreshVisitsBtn">
+                    <i class="fa-solid fa-rotate"></i> Refresh
+                </button>
             </div>
 
-            <div class="col-lg-3 col-md-6 mb-4">
-
-                <a href="/customer/cart" class="dashboard-card">
-
-                    <i class="fa-solid fa-cart-shopping"></i>
-
-                    <h5>
-
-                        My Cart
-
-                    </h5>
-
-                </a>
-
+            <div class="table-responsive">
+                <table class="table align-middle mb-0">
+                    <thead>
+                    <tr>
+                        <th>Visited place</th>
+                        <th>Notes</th>
+                        <th>Date and time</th>
+                    </tr>
+                    </thead>
+                    <tbody id="recentVisits">
+                    <tr><td colspan="3" class="text-center text-muted py-4">Loading visits...</td></tr>
+                    </tbody>
+                </table>
             </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-
-                <a href="/customer/orders" class="dashboard-card">
-
-                    <i class="fa-solid fa-box"></i>
-
-                    <h5>
-
-                        My Orders
-
-                    </h5>
-
-                </a>
-
-            </div>
-
-            <div class="col-lg-3 col-md-6 mb-4">
-
-                <a href="#" class="dashboard-card">
-
-                    <i class="fa-solid fa-user"></i>
-
-                    <h5>
-
-                        Profile
-
-                    </h5>
-
-                </a>
-
-            </div>
-
-        </div>
-
+        </section>
     </div>
+</main>
 
-</section>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script th:src="@{/js/navbar.js}"></script>
-
-<script th:src="@{/js/customer-dashboard.js}"></script>
-
+<script th:src="@{/js/mr-dashboard.js}"></script>
 </body>
-
 </html>
