@@ -21,11 +21,10 @@ public class MRLocationService {
         User user = getActiveMr(email);
         validateCoordinates(request);
 
-        // ✅ save location
         MRLocation location = new MRLocation();
         location.setLatitude(request.getLatitude());
         location.setLongitude(request.getLongitude());
-        location.setMr(user); // 🔥 IMPORTANT
+        location.setMr(user);
 
         locationRepository.save(location);
 
@@ -33,36 +32,61 @@ public class MRLocationService {
     }
 
     public MRLocation getLatestLocation(String email) {
+
         User mr = getActiveMr(email);
-        return locationRepository.findTopByMrIdOrderByTimestampDesc(mr.getId());
+
+        return locationRepository
+                .findTopByMrIdOrderByTimestampDesc(mr.getId());
     }
 
     private User getActiveMr(String email) {
+
         User user = userRepository.findByEmailIgnoreCase(email)
                 .orElseThrow(() -> new RuntimeException("MR not found"));
 
         if (user.getRole() != Role.MR) {
-            throw new RuntimeException("Only an MR can use location tracking");
+            throw new RuntimeException(
+                    "Only an MR can use location tracking"
+            );
         }
+
         if (!user.isActive()) {
             throw new RuntimeException("MR account is inactive");
         }
+
         return user;
     }
 
     private void validateCoordinates(LocationRequest request) {
-        if (request == null || request.getLatitude() == null || request.getLongitude() == null) {
-            throw new IllegalArgumentException("Latitude and longitude are required");
+
+        if (request == null
+                || request.getLatitude() == null
+                || request.getLongitude() == null) {
+
+            throw new IllegalArgumentException(
+                    "Latitude and longitude are required"
+            );
         }
 
         double latitude = request.getLatitude();
         double longitude = request.getLongitude();
 
-        if (!Double.isFinite(latitude) || latitude < -90 || latitude > 90) {
-            throw new IllegalArgumentException("Latitude must be between -90 and 90");
+        if (!Double.isFinite(latitude)
+                || latitude < -90
+                || latitude > 90) {
+
+            throw new IllegalArgumentException(
+                    "Latitude must be between -90 and 90"
+            );
         }
-        if (!Double.isFinite(longitude) || longitude < -180 || longitude > 180) {
-            throw new IllegalArgumentException("Longitude must be between -180 and 180");
+
+        if (!Double.isFinite(longitude)
+                || longitude < -180
+                || longitude > 180) {
+
+            throw new IllegalArgumentException(
+                    "Longitude must be between -180 and 180"
+            );
         }
     }
 }
