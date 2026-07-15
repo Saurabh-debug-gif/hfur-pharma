@@ -1,6 +1,8 @@
 package com.unitidepharma.backend.controller;
 
 import com.unitidepharma.backend.entity.Medicine;
+import com.unitidepharma.backend.entity.Category;
+import com.unitidepharma.backend.dto.MedicineRequest;
 import com.unitidepharma.backend.service.ImageService;
 import com.unitidepharma.backend.service.MedicineService;
 
@@ -9,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.List;import com.unitidepharma.backend.dto.MedicineRequest;
+import java.util.List;
 
 
 @RestController
@@ -21,24 +23,12 @@ public class AdminMedicineController {
     private final ImageService imageService; // ✅ FIX: inject service
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadImage(
-            @RequestParam("file") MultipartFile file,
-            @RequestHeader(value = "Authorization", required = false) String auth
-    ) {
-
-        System.out.println("================================");
-        System.out.println("UPLOAD ENDPOINT HIT");
-        System.out.println("AUTH HEADER = " + auth);
-        System.out.println("================================");
-
+    public ResponseEntity<String> uploadImage(@RequestParam("file") MultipartFile file) {
         return ResponseEntity.ok(imageService.uploadImage(file));
     }
     // ✅ Add Medicine
     @PostMapping
     public ResponseEntity<Medicine> add(@RequestBody MedicineRequest request) {
-
-        System.out.println("===== ADD MEDICINE HIT =====");
-
         return ResponseEntity.ok(medicineService.addMedicine(request));
     }
 
@@ -69,5 +59,11 @@ public class AdminMedicineController {
     @GetMapping
     public ResponseEntity<List<Medicine>> getAll() {
         return ResponseEntity.ok(medicineService.getAllMedicines());
+    }
+
+    // Categories used by the add/edit form.
+    @GetMapping("/categories")
+    public ResponseEntity<List<Category>> getCategories() {
+        return ResponseEntity.ok(medicineService.getAllCategories());
     }
 }

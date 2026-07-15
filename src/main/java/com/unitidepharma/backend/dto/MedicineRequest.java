@@ -10,6 +10,7 @@ public class MedicineRequest {
     private double price;
     private int stock;
     private String description;
+    private String customAttributes;
     private Long categoryId;
     private String imageUrl;
 }

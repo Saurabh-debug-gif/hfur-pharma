@@ -18,6 +18,8 @@
         ".testimonial-card",
         ".process-step",
         ".faq-item",
+        ".capability-card",
+        ".location-card",
         ".about-copy",
         ".about-visual",
         "[data-reveal]"
@@ -120,19 +122,6 @@
     });
 
     /* ============================
-       FLOATING WHATSAPP BUTTON
-    ============================ */
-
-    const wa = document.createElement("a");
-    wa.href = "https://wa.me/918693030619";
-    wa.target = "_blank";
-    wa.rel = "noopener";
-    wa.className = "float-whatsapp";
-    wa.setAttribute("aria-label", "Chat on WhatsApp");
-    wa.innerHTML = '<i class="fa-brands fa-whatsapp"></i>';
-    document.body.appendChild(wa);
-
-    /* ============================
        BACK TO TOP BUTTON
     ============================ */
 
@@ -162,7 +151,7 @@
 
 (async function () {
 
-    const API = "https://hfur-pharma-1.onrender.com/api/public/medicines";
+    const API = "/api/public/medicines";
 
     const topContainer = document.getElementById("topMedicineContainer");
     const sliderContainer = document.getElementById("sliderContainer");
@@ -198,21 +187,20 @@
                 topContainer.innerHTML += `
                 <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
 
-                    <div class="card h-100 shadow-sm">
+                    <div class="medicine-card">
 
                         <img
                             src="${m.imageUrl || 'https://dummyimage.com/300x300/cccccc/000000&text=No+Image'}"
-                            class="card-img-top"
-                            style="height:220px;object-fit:cover;"
+                            alt="${m.name || 'Medicine'}"
                             onerror="this.src='https://dummyimage.com/300x300/cccccc/000000&text=No+Image'">
 
-                        <div class="card-body d-flex flex-column">
+                        <div class="medicine-card-body d-flex flex-column">
 
                             <h5>${m.name}</h5>
 
-                            <p class="text-muted">${m.brand ?? ""}</p>
+                            <p>${m.brand ?? ""}</p>
 
-                            <h6 class="text-success">₹${m.price}</h6>
+                            <div class="price mb-3">₹${m.price}</div>
 
                             <a href="/medicine/${m.id}"
                                class="btn btn-success mt-auto">
@@ -243,26 +231,16 @@
             medicines.forEach(m => {
 
                 sliderContainer.innerHTML += `
-                <div class="slider-item">
-
-                    <div class="card shadow-sm">
+                <a class="slider-card" href="/medicine/${m.id}">
 
                         <img
                             src="${m.imageUrl || 'https://dummyimage.com/250x250/cccccc/000000&text=No+Image'}"
-                            style="height:170px;object-fit:cover;"
+                            alt="${m.name || 'Medicine'}"
                             onerror="this.src='https://dummyimage.com/250x250/cccccc/000000&text=No+Image'">
 
-                        <div class="card-body text-center">
-
-                            <h6>${m.name}</h6>
-
-                            <p>₹${m.price}</p>
-
-                        </div>
-
-                    </div>
-
-                </div>
+                    <h6>${m.name}</h6>
+                    <span class="slider-price">₹${m.price}</span>
+                </a>
                 `;
 
             });

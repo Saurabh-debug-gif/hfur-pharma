@@ -92,6 +92,35 @@
 
         #medicineDescription{
             font-size:1.02rem;
+            white-space:pre-line;
+        }
+
+        .medicine-attributes{
+            display:grid;
+            grid-template-columns:repeat(2, minmax(0, 1fr));
+            gap:.65rem;
+            margin-top:1.25rem;
+        }
+
+        .medicine-attribute{
+            background:#f3fbf7;
+            border:1px solid rgba(15,122,76,.12);
+            border-radius:12px;
+            padding:.75rem .9rem;
+        }
+
+        .medicine-attribute small{
+            color:var(--hp-muted);
+            display:block;
+            font-size:.72rem;
+            font-weight:700;
+            letter-spacing:.05em;
+            text-transform:uppercase;
+        }
+
+        .medicine-attribute strong{
+            color:var(--hp-green-900);
+            font-size:.92rem;
         }
 
         h6{
@@ -166,6 +195,7 @@
 
         @media (max-width: 576px){
             section.container.py-5.mt-5{padding-top:2rem !important; padding-bottom:2rem !important;}
+            .medicine-attributes{grid-template-columns:1fr;}
         }
     </style>
 
@@ -209,6 +239,8 @@
                     id="medicineDescription">
 
             </p>
+
+            <div id="medicineAttributes" class="medicine-attributes d-none" aria-label="Medicine attributes"></div>
 
             <h6>
 

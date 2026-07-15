@@ -37,12 +37,17 @@
 
     <div class="d-flex justify-content-between align-items-center mb-4">
 
-        <h2>Medicine Management</h2>
+        <div>
+            <span class="page-kicker">Inventory &amp; catalogue</span>
+            <h2 class="mb-1">Medicine Management</h2>
+            <p class="text-muted mb-0">Add, edit and safely update medicine stock.</p>
+        </div>
 
         <button
                 class="btn btn-success"
                 data-bs-toggle="modal"
-                data-bs-target="#medicineModal">
+                data-bs-target="#medicineModal"
+                id="addMedicineButton">
 
             <i class="fa-solid fa-plus"></i>
 
@@ -86,7 +91,9 @@
 
                 <th>Stock</th>
 
-                <th width="180">Action</th>
+                <th>Description</th>
+
+                <th width="190">Actions</th>
 
             </tr>
 
@@ -150,6 +157,8 @@
 
                         <div class="col-md-6 mb-3">
 
+                            <label for="name" class="form-label">Medicine name</label>
+
                             <input
 
                                     id="name"
@@ -163,6 +172,8 @@
                         </div>
 
                         <div class="col-md-6 mb-3">
+
+                            <label for="brand" class="form-label">Brand</label>
 
                             <input
 
@@ -178,11 +189,17 @@
 
                         <div class="col-md-6 mb-3">
 
+                            <label for="price" class="form-label">Price</label>
+
                             <input
 
                                     id="price"
 
                                     type="number"
+
+                                    min="0"
+
+                                    step="0.01"
 
                                     class="form-control"
 
@@ -194,11 +211,17 @@
 
                         <div class="col-md-6 mb-3">
 
+                            <label for="stock" class="form-label">Opening/current stock</label>
+
                             <input
 
                                     id="stock"
 
                                     type="number"
+
+                                    min="0"
+
+                                    step="1"
 
                                     class="form-control"
 
@@ -210,6 +233,8 @@
 
                         <div class="col-12 mb-3">
 
+                            <label for="description" class="form-label">Description</label>
+
                             <textarea
 
                                     id="description"
@@ -218,29 +243,35 @@
 
                                     class="form-control"
 
-                                    placeholder="Description">
+                                    placeholder="Add the medicine description"
 
-                            </textarea>
+                                    required></textarea>
+
+                            <small class="text-muted">Long descriptions are supported.</small>
 
                         </div>
 
                         <div class="col-md-6 mb-3">
 
-                            <input
+                            <label for="category" class="form-label">Category</label>
+
+                            <select
 
                                     id="category"
 
-                                    type="number"
-
                                     class="form-control"
 
-                                    placeholder="Category Id"
-
                                     required>
+
+                                <option value="">Select category</option>
+
+                            </select>
 
                         </div>
 
                         <div class="col-md-6 mb-3">
+
+                            <label for="image" class="form-label">Medicine image</label>
 
                             <input
 
@@ -258,11 +289,30 @@
 
                         </div>
 
+                        <div class="col-12 mb-4">
+
+                            <div class="d-flex align-items-center justify-content-between gap-3 mb-2">
+                                <div>
+                                    <label class="form-label mb-0">Custom attributes</label>
+                                    <small class="text-muted d-block">Optional details such as dosage form, strength or pack size.</small>
+                                </div>
+
+                                <button type="button" class="btn btn-outline-success btn-sm" id="addAttributeButton">
+                                    <i class="fa-solid fa-plus"></i> Add attribute
+                                </button>
+                            </div>
+
+                            <div id="customAttributes" class="attribute-list"></div>
+
+                        </div>
+
                     </div>
 
                     <button
 
                             class="btn btn-success w-100"
+
+                            id="saveMedicineButton"
 
                             type="submit">
 
@@ -286,8 +336,6 @@
 <script th:src="@{/js/navbar.js}"></script>
 
 <script th:src="@{/js/admin-medicine.js}"></script>
-
-</body>
 
 </body>
 

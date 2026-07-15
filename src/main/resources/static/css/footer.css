@@ -120,14 +120,14 @@
     gap:10px;
 }
 
-.site-footer .footer-logo-mark{
-    width:34px;
-    height:34px;
-    flex-shrink:0;
-}
-
-.site-footer .footer-brand span{
-    color:var(--hp-green-500);
+.site-footer .footer-brand-logo{
+    width:190px;
+    height:88px;
+    object-fit:contain;
+    object-position:left center;
+    background:#ffffff;
+    border-radius:12px;
+    padding:4px 8px;
 }
 
 @media(max-width:768px){

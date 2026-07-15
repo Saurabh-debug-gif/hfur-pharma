@@ -2,6 +2,17 @@ body{
 
     background:#f5f7fb;
 
+    color:#17382d;
+
+}
+
+.page-kicker{
+    color:#0f7a4c;
+    display:block;
+    font-size:.75rem;
+    font-weight:700;
+    letter-spacing:.12em;
+    text-transform:uppercase;
 }
 
 table{
@@ -18,12 +29,79 @@ table img{
 
     object-fit:contain;
 
+    background:#f2faf6;
+
+    border-radius:10px;
+
 }
 
 .modal-content{
 
     border-radius:15px;
 
+    border:0;
+
+    box-shadow:0 24px 70px rgba(11,61,46,.18);
+
+}
+
+.form-label{
+    color:#24493d;
+    font-size:.88rem;
+    font-weight:700;
+}
+
+.form-control{
+    border-color:#dbe8e2;
+    border-radius:10px;
+    padding:.72rem .85rem;
+}
+
+.form-control:focus{
+    border-color:#12a463;
+    box-shadow:0 0 0 .2rem rgba(18,164,99,.14);
+}
+
+.description-cell{
+    max-width:240px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+.stock-badge{
+    border-radius:50px;
+    display:inline-flex;
+    font-size:.78rem;
+    font-weight:800;
+    min-width:44px;
+    justify-content:center;
+    padding:.35rem .65rem;
+}
+
+.stock-ok{ background:#ddf7e9; color:#0b7042; }
+.stock-low{ background:#fff1cf; color:#8a5a00; }
+.stock-out{ background:#fde4e7; color:#b42335; }
+
+.action-buttons{
+    display:flex;
+    flex-wrap:wrap;
+    gap:.45rem;
+}
+
+.attribute-list{
+    display:grid;
+    gap:.65rem;
+}
+
+.attribute-row{
+    display:grid;
+    grid-template-columns:1fr 1fr auto;
+    gap:.65rem;
+}
+
+.attribute-row .btn{
+    min-width:44px;
 }
 
 .btn-success{
@@ -52,6 +130,14 @@ table img{
 
         height:55px;
 
+    }
+
+    .attribute-row{
+        grid-template-columns:1fr;
+    }
+
+    .attribute-row .btn{
+        width:100%;
     }
 
 }

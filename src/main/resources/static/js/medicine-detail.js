@@ -22,18 +22,20 @@ async function loadMedicine() {
 
         document.getElementById("medicineImage").src = medicine.imageUrl;
 
-        document.getElementById("medicineName").innerHTML = medicine.name;
+        document.getElementById("medicineName").textContent = medicine.name || "Medicine";
 
-        document.getElementById("medicineBrand").innerHTML = medicine.brand;
+        document.getElementById("medicineBrand").textContent = medicine.brand || "";
 
-        document.getElementById("medicinePrice").innerHTML =
+        document.getElementById("medicinePrice").textContent =
             "₹" + medicine.price;
 
-        document.getElementById("medicineDescription").innerHTML =
-            medicine.description;
+        document.getElementById("medicineDescription").textContent =
+            medicine.description || "Description not available.";
 
-        document.getElementById("medicineStock").innerHTML =
+        document.getElementById("medicineStock").textContent =
             medicine.stock;
+
+        renderCustomAttributes(medicine.customAttributes);
 
     }
 
@@ -43,6 +45,38 @@ async function loadMedicine() {
 
     }
 
+}
+
+function renderCustomAttributes(rawAttributes) {
+    const container = document.getElementById("medicineAttributes");
+    let attributes = {};
+
+    try {
+        attributes = typeof rawAttributes === "string"
+            ? JSON.parse(rawAttributes || "{}")
+            : (rawAttributes || {});
+    } catch {
+        attributes = {};
+    }
+
+    const entries = Object.entries(attributes).filter(([key, value]) => key && value);
+    container.innerHTML = "";
+
+    entries.forEach(([key, value]) => {
+        const item = document.createElement("div");
+        item.className = "medicine-attribute";
+
+        const label = document.createElement("small");
+        label.textContent = key;
+
+        const detail = document.createElement("strong");
+        detail.textContent = value;
+
+        item.append(label, detail);
+        container.appendChild(item);
+    });
+
+    container.classList.toggle("d-none", entries.length === 0);
 }
 
 /* ===========================

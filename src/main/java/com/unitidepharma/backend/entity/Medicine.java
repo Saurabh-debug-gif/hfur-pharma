@@ -25,9 +25,11 @@ public class Medicine {
 
     private int stock;
 
+    @Column(columnDefinition = "TEXT")
     private String description;
 
-
+    @Column(columnDefinition = "TEXT")
+    private String customAttributes;
 
     @ManyToOne
     @JoinColumn(name = "category_id")
