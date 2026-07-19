@@ -1,4 +1,4 @@
-const API = "https://hfur-pharma-1.onrender.com/api";
+const API = "/api";
 
 const token = localStorage.getItem("token");
 

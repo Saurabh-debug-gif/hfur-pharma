@@ -6,7 +6,7 @@ if(!token){
 
 }
 
-const API="https://hfur-pharma-1.onrender.com/api/customer/orders";
+const API = "/api/customer/orders";
 
 const container=document.getElementById("ordersContainer");
 

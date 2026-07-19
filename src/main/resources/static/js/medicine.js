@@ -1,4 +1,4 @@
-const API = "https://hfur-pharma-1.onrender.com/api/public/medicines";
+const API = "/api/public/medicines";
 
 const container = document.getElementById("medicineContainer");
 const search = document.getElementById("searchMedicine");
