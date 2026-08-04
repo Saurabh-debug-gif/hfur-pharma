@@ -119,15 +119,16 @@
     align-items:center;
     gap:10px;
 }
-
 .site-footer .footer-brand-logo{
     width:190px;
     height:88px;
+    display:block;
     object-fit:contain;
-    object-position:left center;
+    object-position:center;
     background:#ffffff;
     border-radius:12px;
-    padding:4px 8px;
+    padding:8px;
+    box-sizing:border-box;
 }
 
 @media(max-width:768px){
