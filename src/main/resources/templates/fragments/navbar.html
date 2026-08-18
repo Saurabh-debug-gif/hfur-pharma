@@ -32,9 +32,12 @@
                  alt="Hfur Pharma"
                  onerror="this.classList.add('d-none');this.nextElementSibling.classList.remove('d-none')">
 
-            <span class="brand-fallback d-none" aria-label="Hfur Pharma">
+            <span class="brand-fallback d-none" aria-hidden="true">
                 <span class="fallback-mark">H</span>
-                <span>Hfur <strong>Pharma</strong></span>
+            </span>
+
+            <span class="brand-wordmark" aria-label="Hfur Pharma">
+                HFUR <strong>PHARMA</strong>
             </span>
 
         </a>
@@ -42,7 +45,10 @@
         <button class="navbar-toggler"
                 type="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#navbarNav">
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Open navigation menu">
 
             <span class="navbar-toggler-icon"></span>
 
@@ -61,6 +67,26 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/medicines">
                         Medicines
+                    </a>
+                </li>
+
+                <li class="nav-item" id="enquiryNav">
+                    <a class="nav-link nav-icon-link" href="/#contactForm">
+                        <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v7a2.5 2.5 0 0 1-2.5 2.5H11l-4.7 3.6c-.65.5-1.6.04-1.6-.78V15.7A2.5 2.5 0 0 1 4 14V5.5Z"/>
+                            <path d="M8 7.5h8M8 11h5"/>
+                        </svg>
+                        <span>Enquiry</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link nav-icon-link" href="/#location">
+                        <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M20 10c0 5.2-8 11-8 11S4 15.2 4 10a8 8 0 1 1 16 0Z"/>
+                            <circle cx="12" cy="10" r="2.5"/>
+                        </svg>
+                        <span>Location</span>
                     </a>
                 </li>
 
@@ -87,6 +113,15 @@
                 <li class="nav-item d-none" id="logoutNav">
                     <a class="nav-link" href="#" onclick="logout()">
                         Logout
+                    </a>
+                </li>
+
+                <li class="nav-item contact-nav-item">
+                    <a class="nav-link contact-cta" href="/#contact">
+                        <svg class="nav-item-icon" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M7.2 3.8 9.7 8l-2 2a15.6 15.6 0 0 0 6.3 6.3l2-2 4.2 2.5c.4.25.62.72.52 1.18l-.45 2.05A2.5 2.5 0 0 1 17.83 22C9.09 22 2 14.91 2 6.17a2.5 2.5 0 0 1 1.97-2.44l2.05-.45c.46-.1.93.11 1.18.52Z"/>
+                        </svg>
+                        <span>Contact Us</span>
                     </a>
                 </li>
 
