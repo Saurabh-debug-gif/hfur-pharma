@@ -1570,3 +1570,536 @@ img{ max-width:100%; }
 @media(max-width:576px){
     .back-to-top{ left:16px; right:auto; bottom:16px; }
 }
+
+/* =========================================================
+   DARK EMERALD & GOLD — HOMEPAGE-ONLY PREMIUM THEME
+   Scoped with body.home-luxury so dashboards, auth pages,
+   medicine pages and backend-connected elements are untouched.
+========================================================= */
+
+body.home-luxury{
+    --lux-emerald-1000:#02110d;
+    --lux-emerald-950:#031a14;
+    --lux-emerald-900:#06271e;
+    --lux-emerald-850:#083326;
+    --lux-emerald-800:#0b4030;
+    --lux-gold-500:#d8b45a;
+    --lux-gold-400:#e8ca78;
+    --lux-gold-300:#f2dc9b;
+    --lux-ivory:#fff8e7;
+    --lux-cream:#eadfbe;
+    --lux-muted:#c9bb94;
+    background:var(--lux-emerald-950);
+    color:var(--lux-cream);
+}
+
+body.home-luxury::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-1;
+    pointer-events:none;
+    background:
+            radial-gradient(circle at 12% 15%, rgba(216,180,90,.08), transparent 24%),
+            radial-gradient(circle at 88% 30%, rgba(34,124,91,.18), transparent 30%),
+            linear-gradient(145deg, var(--lux-emerald-950), var(--lux-emerald-1000));
+}
+
+body.home-luxury h1,
+body.home-luxury h2,
+body.home-luxury h3,
+body.home-luxury h4,
+body.home-luxury h5,
+body.home-luxury h6{
+    color:var(--lux-gold-300);
+}
+
+body.home-luxury p,
+body.home-luxury li,
+body.home-luxury .text-muted{
+    color:var(--lux-cream) !important;
+}
+
+body.home-luxury a{
+    color:var(--lux-gold-300);
+}
+
+/* Navbar on the homepage */
+body.home-luxury .navbar{
+    background:rgba(3,26,20,.96) !important;
+    border-bottom:1px solid rgba(216,180,90,.25);
+    box-shadow:0 12px 34px rgba(0,0,0,.28);
+    backdrop-filter:blur(18px);
+}
+
+body.home-luxury .navbar-brand .brand-logo{
+    background:#ffffff;
+    box-shadow:0 6px 18px rgba(0,0,0,.22);
+    padding:3px;
+}
+
+body.home-luxury .brand-wordmark,
+body.home-luxury .brand-wordmark strong{
+    color:var(--lux-gold-300);
+}
+
+body.home-luxury .nav-link{
+    color:var(--lux-ivory) !important;
+}
+
+body.home-luxury .nav-link:hover{
+    background:rgba(216,180,90,.11);
+    color:var(--lux-gold-300) !important;
+}
+
+body.home-luxury .nav-link::after{
+    background:var(--lux-gold-500);
+}
+
+body.home-luxury .navbar .contact-cta{
+    background:linear-gradient(135deg, var(--lux-gold-300), var(--lux-gold-500));
+    color:var(--lux-emerald-950) !important;
+    box-shadow:0 10px 28px rgba(216,180,90,.22);
+}
+
+body.home-luxury .navbar .contact-cta:hover{
+    background:linear-gradient(135deg, #fff0b8, var(--lux-gold-400));
+    color:var(--lux-emerald-950) !important;
+}
+
+body.home-luxury .navbar-toggler{
+    border-color:rgba(216,180,90,.45);
+    background:rgba(216,180,90,.08);
+}
+
+body.home-luxury .navbar-toggler-icon{
+    filter:invert(88%) sepia(38%) saturate(521%) hue-rotate(356deg) brightness(103%);
+}
+
+/* Company announcement strip */
+body.home-luxury > aside.bg-success{
+    background:linear-gradient(90deg, #031a14, #0a3b2c, #031a14) !important;
+    border-bottom:1px solid rgba(216,180,90,.28);
+    color:var(--lux-gold-300) !important;
+}
+
+body.home-luxury > aside.bg-success i{
+    color:var(--lux-gold-500);
+}
+
+/* Hero */
+body.home-luxury .hero{
+    background:
+            radial-gradient(circle at 78% 30%, rgba(216,180,90,.13), transparent 24%),
+            radial-gradient(circle at 24% 55%, rgba(22,104,76,.28), transparent 35%),
+            linear-gradient(135deg, var(--lux-emerald-950) 0%, #073326 58%, var(--lux-emerald-1000) 100%);
+    border-bottom:1px solid rgba(216,180,90,.18);
+}
+
+body.home-luxury .hero::before{
+    opacity:.18;
+    filter:sepia(1) saturate(.55) hue-rotate(355deg);
+}
+
+body.home-luxury .hero h1{
+    color:var(--lux-ivory);
+    text-shadow:0 8px 35px rgba(0,0,0,.32);
+}
+
+body.home-luxury .hero h1 span{
+    background:linear-gradient(90deg, var(--lux-gold-300), var(--lux-gold-500), #fff0b8);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+}
+
+body.home-luxury .hero p.lead{
+    color:var(--lux-cream);
+}
+
+body.home-luxury .eyebrow,
+body.home-luxury .hero .badge{
+    background:rgba(216,180,90,.08) !important;
+    border:1px solid rgba(216,180,90,.38) !important;
+    color:var(--lux-gold-300) !important;
+}
+
+body.home-luxury .eyebrow::before{
+    background:var(--lux-gold-500);
+    box-shadow:0 0 0 5px rgba(216,180,90,.12);
+}
+
+body.home-luxury .hero .btn-success,
+body.home-luxury #contactForm .btn-success,
+body.home-luxury .location-actions .btn-success{
+    background:linear-gradient(135deg, var(--lux-gold-300), var(--lux-gold-500));
+    border-color:var(--lux-gold-400);
+    color:var(--lux-emerald-950);
+    box-shadow:0 12px 30px rgba(216,180,90,.22);
+}
+
+body.home-luxury .hero .btn-success:hover,
+body.home-luxury #contactForm .btn-success:hover,
+body.home-luxury .location-actions .btn-success:hover{
+    background:linear-gradient(135deg, #fff0b8, var(--lux-gold-400));
+    color:var(--lux-emerald-950);
+}
+
+body.home-luxury .hero .btn-ghost{
+    border-color:rgba(216,180,90,.4);
+    color:var(--lux-gold-300);
+}
+
+body.home-luxury .hero .btn-ghost:hover{
+    background:rgba(216,180,90,.1);
+    border-color:var(--lux-gold-400);
+    color:var(--lux-ivory);
+}
+
+body.home-luxury .hero-stats .stat b{
+    color:var(--lux-gold-300);
+}
+
+body.home-luxury .hero-stats .stat span,
+body.home-luxury .floating-chip span{
+    color:var(--lux-muted);
+}
+
+body.home-luxury .hero-visual .hero-image{
+    border:1px solid rgba(216,180,90,.28);
+    box-shadow:0 30px 70px rgba(0,0,0,.42), 0 0 60px rgba(216,180,90,.08);
+}
+
+body.home-luxury .hero-visual .ring{
+    border-color:rgba(216,180,90,.25);
+}
+
+body.home-luxury .floating-chip,
+body.home-luxury .about-stat-card{
+    background:rgba(3,26,20,.94);
+    border:1px solid rgba(216,180,90,.35);
+    box-shadow:0 18px 44px rgba(0,0,0,.35);
+}
+
+body.home-luxury .floating-chip strong,
+body.home-luxury .about-stat-card b{
+    color:var(--lux-gold-300);
+}
+
+body.home-luxury .floating-chip .chip-icon{
+    background:rgba(216,180,90,.12);
+    color:var(--lux-gold-400);
+}
+
+/* Section backgrounds */
+body.home-luxury .trust-strip,
+body.home-luxury #featured,
+body.home-luxury .slider-section,
+body.home-luxury #about,
+body.home-luxury .process-section,
+body.home-luxury .manufacturing-section,
+body.home-luxury .why-section,
+body.home-luxury .testimonials,
+body.home-luxury .faq-section,
+body.home-luxury #contact,
+body.home-luxury .company-system,
+body.home-luxury .location-section{
+    background:var(--lux-emerald-950);
+}
+
+body.home-luxury #featured,
+body.home-luxury #about,
+body.home-luxury .why-section,
+body.home-luxury .faq-section,
+body.home-luxury #contact{
+    background:
+            radial-gradient(circle at 90% 10%, rgba(216,180,90,.055), transparent 28%),
+            var(--lux-emerald-950);
+}
+
+body.home-luxury .section-head h2,
+body.home-luxury .company-system-copy h2,
+body.home-luxury .location-copy h2{
+    color:var(--lux-gold-300);
+}
+
+body.home-luxury .section-head p,
+body.home-luxury .company-system-copy p,
+body.home-luxury .location-copy p{
+    color:var(--lux-cream);
+}
+
+/* Trust strip */
+body.home-luxury .trust-strip{
+    border-top:1px solid rgba(216,180,90,.15);
+    border-bottom:1px solid rgba(216,180,90,.15);
+}
+
+body.home-luxury .trust-strip .trust-item{
+    color:var(--lux-cream);
+}
+
+body.home-luxury .trust-strip .trust-item i{
+    color:var(--lux-gold-500);
+}
+
+/* Premium cards */
+body.home-luxury .company-system-shell,
+body.home-luxury .capability-card,
+body.home-luxury .medicine-card,
+body.home-luxury .slider-card,
+body.home-luxury .process-step,
+body.home-luxury .mfg-card,
+body.home-luxury .feature-card,
+body.home-luxury .testimonial-card,
+body.home-luxury .faq-item,
+body.home-luxury .location-card,
+body.home-luxury .contact-wrap{
+    background:linear-gradient(145deg, rgba(11,64,48,.78), rgba(3,26,20,.96));
+    border:1px solid rgba(216,180,90,.22);
+    box-shadow:0 18px 48px rgba(0,0,0,.25);
+}
+
+body.home-luxury .capability-card:hover,
+body.home-luxury .medicine-card:hover,
+body.home-luxury .slider-card:hover,
+body.home-luxury .process-step:hover,
+body.home-luxury .mfg-card:hover,
+body.home-luxury .feature-card:hover{
+    border-color:rgba(232,202,120,.62);
+    box-shadow:0 24px 56px rgba(0,0,0,.34), 0 0 24px rgba(216,180,90,.07);
+}
+
+body.home-luxury .capability-card h3,
+body.home-luxury .medicine-card h5,
+body.home-luxury .slider-card h6,
+body.home-luxury .process-step h5,
+body.home-luxury .mfg-card h5,
+body.home-luxury .feature-card h5,
+body.home-luxury .testimonial-card strong,
+body.home-luxury .faq-question{
+    color:var(--lux-gold-300);
+}
+
+body.home-luxury .capability-card p,
+body.home-luxury .medicine-card p,
+body.home-luxury .process-step p,
+body.home-luxury .mfg-card p,
+body.home-luxury .feature-card p,
+body.home-luxury .testimonial-card p,
+body.home-luxury .faq-answer p{
+    color:var(--lux-cream);
+}
+
+body.home-luxury .capability-icon,
+body.home-luxury .process-icon,
+body.home-luxury .mfg-card .mfg-icon,
+body.home-luxury .feature-card .icon-wrap{
+    background:rgba(216,180,90,.11);
+    border:1px solid rgba(216,180,90,.24);
+    color:var(--lux-gold-400);
+}
+
+body.home-luxury .medicine-card img,
+body.home-luxury .slider-card img{
+    background:#f8f4e8;
+}
+
+body.home-luxury .price,
+body.home-luxury .slider-price,
+body.home-luxury .system-link{
+    color:var(--lux-gold-300);
+}
+
+body.home-luxury .medicine-card-body .btn-success,
+body.home-luxury .btn-outline-success{
+    background:transparent;
+    border-color:var(--lux-gold-500);
+    color:var(--lux-gold-300);
+}
+
+body.home-luxury .medicine-card-body .btn-success:hover,
+body.home-luxury .btn-outline-success:hover{
+    background:var(--lux-gold-500);
+    color:var(--lux-emerald-950);
+}
+
+/* About, certification and testimonials */
+body.home-luxury .about-visual img{
+    border:1px solid rgba(216,180,90,.3);
+    box-shadow:0 24px 60px rgba(0,0,0,.35);
+}
+
+body.home-luxury .about-points li i,
+body.home-luxury .testimonial-card .stars,
+body.home-luxury .cert-item i{
+    color:var(--lux-gold-500);
+}
+
+body.home-luxury .cert-strip{
+    background:linear-gradient(90deg, var(--lux-emerald-900), var(--lux-emerald-800), var(--lux-emerald-900));
+    border-top:1px solid rgba(216,180,90,.2);
+    border-bottom:1px solid rgba(216,180,90,.2);
+}
+
+body.home-luxury .cert-item{
+    color:var(--lux-gold-300);
+}
+
+body.home-luxury .testimonial-card .avatar{
+    background:linear-gradient(135deg, var(--lux-gold-300), var(--lux-gold-500));
+    color:var(--lux-emerald-950);
+}
+
+body.home-luxury .testimonial-card .author span{
+    color:var(--lux-muted);
+}
+
+/* FAQ */
+body.home-luxury .faq-question{
+    background:transparent;
+}
+
+body.home-luxury .faq-question i{
+    color:var(--lux-gold-500);
+}
+
+/* CTA banner */
+body.home-luxury .cta-banner .inner{
+    background:
+            radial-gradient(circle at 85% 20%, rgba(255,240,184,.14), transparent 30%),
+            linear-gradient(135deg, var(--lux-emerald-800), var(--lux-emerald-1000));
+    border:1px solid rgba(216,180,90,.35);
+    box-shadow:0 24px 60px rgba(0,0,0,.32);
+}
+
+body.home-luxury .cta-banner h3{
+    color:var(--lux-gold-300);
+}
+
+body.home-luxury .cta-banner p{
+    color:var(--lux-cream);
+}
+
+body.home-luxury .cta-banner .btn-light{
+    background:linear-gradient(135deg, var(--lux-gold-300), var(--lux-gold-500));
+    border-color:var(--lux-gold-400);
+    color:var(--lux-emerald-950);
+}
+
+/* Location */
+body.home-luxury .location-visual{
+    background:linear-gradient(145deg, #0a4534, #031a14);
+    border-right:1px solid rgba(216,180,90,.2);
+}
+
+body.home-luxury .map-grid{
+    opacity:.18;
+    filter:sepia(1) saturate(.7);
+}
+
+body.home-luxury .map-route,
+body.home-luxury .map-pin{
+    color:var(--lux-gold-400);
+}
+
+body.home-luxury .map-label,
+body.home-luxury .location-call{
+    color:var(--lux-gold-300);
+}
+
+/* Contact form */
+body.home-luxury .contact-info .contact-line .ico{
+    background:rgba(216,180,90,.11);
+    color:var(--lux-gold-400);
+}
+
+body.home-luxury .contact-info .contact-line a,
+body.home-luxury .contact-info .contact-line span.txt{
+    color:var(--lux-gold-300);
+}
+
+body.home-luxury .contact-info .contact-line small{
+    color:var(--lux-muted);
+}
+
+body.home-luxury #contactForm{
+    background:rgba(2,17,13,.45);
+    border-left:1px solid rgba(216,180,90,.18);
+}
+
+body.home-luxury #contactForm .form-control{
+    background:rgba(3,26,20,.86);
+    border-color:rgba(216,180,90,.25);
+    color:var(--lux-ivory);
+}
+
+body.home-luxury #contactForm .form-control::placeholder{
+    color:var(--lux-muted);
+}
+
+body.home-luxury #contactForm .form-control:focus{
+    background:var(--lux-emerald-950);
+    border-color:var(--lux-gold-400);
+    box-shadow:0 0 0 .2rem rgba(216,180,90,.13);
+}
+
+/* Homepage footer */
+body.home-luxury .site-footer{
+    background:var(--lux-emerald-1000);
+    border-top:1px solid rgba(216,180,90,.25);
+    color:var(--lux-cream);
+}
+
+body.home-luxury .site-footer h5,
+body.home-luxury .site-footer .footer-links a,
+body.home-luxury .site-footer .footer-contact a{
+    color:var(--lux-gold-300);
+}
+
+body.home-luxury .site-footer p,
+body.home-luxury .site-footer .footer-bottom{
+    color:var(--lux-muted);
+}
+
+body.home-luxury .site-footer .social-icons a,
+body.home-luxury .site-footer .footer-contact i{
+    background:rgba(216,180,90,.1);
+    color:var(--lux-gold-400);
+}
+
+body.home-luxury .site-footer .social-icons a:hover{
+    background:var(--lux-gold-500);
+    color:var(--lux-emerald-950);
+}
+
+body.home-luxury .site-footer .footer-bottom{
+    border-top-color:rgba(216,180,90,.15);
+}
+
+/* Floating controls */
+body.home-luxury .back-to-top,
+body.home-luxury .fc-call{
+    background:linear-gradient(135deg, var(--lux-gold-300), var(--lux-gold-500));
+    color:var(--lux-emerald-950);
+}
+
+@media(max-width:992px){
+    body.home-luxury .navbar-nav{
+        background:rgba(3,26,20,.98);
+        border-color:rgba(216,180,90,.22);
+        box-shadow:0 22px 50px rgba(0,0,0,.4);
+    }
+}
+
+@media(max-width:768px){
+    body.home-luxury #contactForm{
+        border-left:0;
+        border-top:1px solid rgba(216,180,90,.18);
+    }
+
+    body.home-luxury .location-visual{
+        border-right:0;
+        border-bottom:1px solid rgba(216,180,90,.2);
+    }
+}
