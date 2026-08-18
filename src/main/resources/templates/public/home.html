@@ -64,14 +64,26 @@
           th:href="@{/css/navbar.css}">
 
     <link rel="stylesheet"
-          th:href="@{/css/home.css}">
-
-    <link rel="stylesheet"
           th:href="@{/css/footer.css}">
+
+    <!-- Loaded last so the homepage can safely theme its own shared
+         navbar and footer without changing them on any other page. -->
+    <link rel="stylesheet"
+          th:href="@{/css/home.css}">
 
 </head>
 
 <body class="home-luxury">
+
+<!-- Fixed decorative environment. It never blocks clicks or changes page content. -->
+<div class="future-environment" aria-hidden="true">
+    <span class="future-grid"></span>
+    <span class="future-aurora future-aurora-one"></span>
+    <span class="future-aurora future-aurora-two"></span>
+    <span class="future-pointer-glow"></span>
+</div>
+
+<div class="future-scroll-progress" aria-hidden="true"><span></span></div>
 
 <!-- Cinematic homepage intro. Decorative only; all page content remains available underneath. -->
 <div class="site-intro" id="siteIntro" aria-hidden="true">
@@ -96,14 +108,14 @@
 <div th:replace="~{fragments/navbar :: navbar}"></div>
 
 <!-- ================= PREMIUM COMPANY HIGHLIGHTS ================= -->
-<aside class="bg-success text-white py-2" aria-label="Hfur Pharma company highlights">
+<aside class="bg-success text-white py-2 future-status-bar" aria-label="Hfur Pharma company highlights">
     <div class="container">
         <div class="d-flex flex-wrap justify-content-center align-items-center gap-2 gap-md-4 small fw-semibold text-center">
-            <span><i class="fa-solid fa-building-shield me-2"></i>Pharmaceutical Company with Its Own Manufacturing Unit</span>
+            <span><i class="future-status-dot" aria-hidden="true"></i><i class="fa-solid fa-building-shield me-2"></i>Pharmaceutical Company with Its Own Manufacturing Unit</span>
             <span class="d-none d-md-inline opacity-50" aria-hidden="true">•</span>
-            <span><i class="fa-solid fa-shield-heart me-2"></i>Quality-Controlled Medicines</span>
+            <span><i class="future-status-dot" aria-hidden="true"></i><i class="fa-solid fa-shield-heart me-2"></i>Quality-Controlled Medicines</span>
             <span class="d-none d-md-inline opacity-50" aria-hidden="true">•</span>
-            <span><i class="fa-solid fa-truck-fast me-2"></i>Serving Healthcare Nationwide</span>
+            <span><i class="future-status-dot" aria-hidden="true"></i><i class="fa-solid fa-truck-fast me-2"></i>Serving Healthcare Nationwide</span>
         </div>
     </div>
 </aside>
@@ -200,6 +212,14 @@
 
                     <div class="ring d-none d-lg-block"></div>
 
+                    <div class="hero-interface" aria-hidden="true">
+                        <span class="interface-corner corner-tl"></span>
+                        <span class="interface-corner corner-tr"></span>
+                        <span class="interface-corner corner-bl"></span>
+                        <span class="interface-corner corner-br"></span>
+                        <span class="interface-scan"></span>
+                    </div>
+
                     <img
 
                             th:src="@{/images/hero.png}"
@@ -207,6 +227,11 @@
                             alt="Hfur Pharma Hero"
 
                             class="hero-image img-fluid">
+
+                    <div class="hero-live-status" aria-hidden="true">
+                        <span></span>
+                        Quality systems active
+                    </div>
 
                     <div class="floating-chip chip-1">
                         <div class="chip-icon"><i class="fa-solid fa-industry"></i></div>
@@ -289,11 +314,39 @@
 
     </div>
 
+    <div class="medicine-command-bar" data-reveal>
+        <div class="medicine-command-status">
+            <span class="command-pulse" aria-hidden="true"></span>
+            <div>
+                <small>Medicine Intelligence Hub</small>
+                <strong id="medicineLiveCount" aria-live="polite">Connecting to catalogue...</strong>
+            </div>
+        </div>
+
+        <label class="medicine-search" for="medicineSearch">
+            <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+            <input id="medicineSearch"
+                   type="search"
+                   placeholder="Search featured medicines"
+                   autocomplete="off">
+            <span class="visually-hidden">Search featured medicines</span>
+        </label>
+    </div>
+
+    <div class="medicine-category-console"
+         id="medicineCategoryFilters"
+         aria-label="Filter featured medicines by category">
+        <button type="button" class="medicine-filter is-active" data-medicine-category="all">
+            All Medicines
+        </button>
+    </div>
+
     <div
 
             id="topMedicineContainer"
 
-            class="row g-4">
+            class="row g-4 medicine-results-grid"
+            aria-live="polite">
 
     </div>
 
