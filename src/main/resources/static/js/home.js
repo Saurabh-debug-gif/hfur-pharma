@@ -6,6 +6,54 @@
    any existing data, numbers, or logic.
 ================================ */
 
+/* ================================
+   CINEMATIC INTRO
+   Runs once per browser session and
+   automatically respects reduced motion.
+================================ */
+
+(() => {
+    const intro = document.getElementById("siteIntro");
+    if (!intro) return;
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    let introSeen = false;
+
+    try {
+        introSeen = sessionStorage.getItem("hfurIntroSeen") === "true";
+    } catch (error) {
+        introSeen = false;
+    }
+
+    if (reduceMotion || introSeen) {
+        intro.remove();
+        return;
+    }
+
+    document.body.classList.add("intro-active");
+
+    const closeIntro = () => {
+        if (!intro.isConnected || intro.classList.contains("intro-exit")) return;
+
+        intro.classList.add("intro-exit");
+        document.body.classList.remove("intro-active");
+
+        try {
+            sessionStorage.setItem("hfurIntroSeen", "true");
+        } catch (error) {
+            // The animation still works when browser storage is unavailable.
+        }
+
+        window.setTimeout(() => intro.remove(), 800);
+    };
+
+    window.setTimeout(closeIntro, 2050);
+    intro.addEventListener("click", closeIntro);
+    document.addEventListener("keydown", event => {
+        if (event.key === "Escape") closeIntro();
+    }, { once: true });
+})();
+
 (() => {
 
     /* ============================
@@ -158,6 +206,49 @@
 
     if (!topContainer && !sliderContainer) return;
 
+    const escapeHtml = value => String(value ?? "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+
+    const safeImageUrl = value => {
+        const url = String(value ?? "").trim();
+        if (url.startsWith("/") || /^https?:\/\//i.test(url)) return escapeHtml(url);
+        return "https://dummyimage.com/300x300/08271e/e8ca78&text=Medicine";
+    };
+
+    const activateMedicineCards = () => {
+        const cards = document.querySelectorAll("[data-medicine-card]");
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        if (reduceMotion || !("IntersectionObserver" in window)) {
+            cards.forEach(card => card.classList.add("is-visible"));
+        } else {
+            const cardObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) return;
+                    const delay = Number(entry.target.dataset.cardIndex || 0) * 80;
+                    window.setTimeout(() => entry.target.classList.add("is-visible"), delay);
+                    cardObserver.unobserve(entry.target);
+                });
+            }, { threshold: 0.16, rootMargin: "0px 0px -35px 0px" });
+
+            cards.forEach(card => cardObserver.observe(card));
+        }
+
+        if (window.matchMedia("(pointer: fine)").matches) {
+            cards.forEach(card => {
+                card.addEventListener("pointermove", event => {
+                    const bounds = card.getBoundingClientRect();
+                    card.style.setProperty("--spot-x", `${event.clientX - bounds.left}px`);
+                    card.style.setProperty("--spot-y", `${event.clientY - bounds.top}px`);
+                });
+            });
+        }
+    };
+
     try {
 
         const response = await axios.get(API);
@@ -182,41 +273,55 @@
 
             topContainer.innerHTML = "";
 
-            medicines.slice(0, 8).forEach(m => {
+            topContainer.innerHTML = medicines.slice(0, 8).map((medicine, index) => {
+                const id = Number(medicine.id);
+                const stock = Number(medicine.stock) || 0;
+                const inStock = stock > 0;
+                const category = medicine.category?.name || "Pharmaceutical Care";
 
-                topContainer.innerHTML += `
-                <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+                return `
+                    <div class="col-xl-3 col-lg-4 col-md-6 medicine-grid-item">
+                        <article class="medicine-card medicine-vault-card"
+                                 data-medicine-card
+                                 data-card-index="${index}">
+                            <span class="medicine-scan" aria-hidden="true"></span>
 
-                    <div class="medicine-card">
+                            <div class="medicine-card-topline">
+                                <span class="medicine-label">
+                                    <i class="fa-solid fa-microscope"></i> Featured Medicine
+                                </span>
+                                <span class="medicine-stock ${inStock ? "is-available" : "is-enquiry"}">
+                                    <i></i>${inStock ? "In stock" : "Enquire"}
+                                </span>
+                            </div>
 
-                        <img
-                            src="${m.imageUrl || 'https://dummyimage.com/300x300/cccccc/000000&text=No+Image'}"
-                            alt="${m.name || 'Medicine'}"
-                            onerror="this.src='https://dummyimage.com/300x300/cccccc/000000&text=No+Image'">
+                            <div class="medicine-image-stage">
+                                <span class="medicine-orbit" aria-hidden="true"></span>
+                                <img src="${safeImageUrl(medicine.imageUrl)}"
+                                     alt="${escapeHtml(medicine.name || "Medicine")}"
+                                     loading="lazy"
+                                     onerror="this.onerror=null;this.src='https://dummyimage.com/300x300/08271e/e8ca78&text=Medicine'">
+                            </div>
 
-                        <div class="medicine-card-body d-flex flex-column">
+                            <div class="medicine-card-body d-flex flex-column">
+                                <span class="medicine-category">${escapeHtml(category)}</span>
+                                <h5>${escapeHtml(medicine.name || "Medicine")}</h5>
+                                <p>${escapeHtml(medicine.brand || "")}</p>
 
-                            <h5>${m.name}</h5>
+                                <div class="medicine-card-footer">
+                                    <div class="price">₹${escapeHtml(medicine.price)}</div>
+                                    <a href="/medicine/${id}"
+                                       class="btn btn-success"
+                                       aria-label="View ${escapeHtml(medicine.name || "medicine")} details">
+                                        View Details <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </article>
+                    </div>`;
+            }).join("");
 
-                            <p>${m.brand ?? ""}</p>
-
-                            <div class="price mb-3">₹${m.price}</div>
-
-                            <a href="/medicine/${m.id}"
-                               class="btn btn-success mt-auto">
-
-                                View Details
-
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-                `;
-
-            });
+            activateMedicineCards();
 
         }
 
@@ -228,22 +333,22 @@
 
             sliderContainer.innerHTML = "";
 
-            medicines.forEach(m => {
+            const sliderMedicines = medicines.length ? [...medicines, ...medicines] : [];
 
-                sliderContainer.innerHTML += `
-                <a class="slider-card" href="/medicine/${m.id}">
-
-                        <img
-                            src="${m.imageUrl || 'https://dummyimage.com/250x250/cccccc/000000&text=No+Image'}"
-                            alt="${m.name || 'Medicine'}"
-                            onerror="this.src='https://dummyimage.com/250x250/cccccc/000000&text=No+Image'">
-
-                    <h6>${m.name}</h6>
-                    <span class="slider-price">₹${m.price}</span>
-                </a>
-                `;
-
-            });
+            sliderContainer.innerHTML = sliderMedicines.map((medicine, index) => `
+                <a class="slider-card"
+                   href="/medicine/${Number(medicine.id)}"
+                   ${index >= medicines.length ? 'aria-hidden="true" tabindex="-1"' : ""}>
+                    <span class="slider-card-glow" aria-hidden="true"></span>
+                    <img src="${safeImageUrl(medicine.imageUrl)}"
+                         alt="${escapeHtml(medicine.name || "Medicine")}"
+                         loading="lazy"
+                         onerror="this.onerror=null;this.src='https://dummyimage.com/250x250/08271e/e8ca78&text=Medicine'">
+                    <span class="slider-card-copy">
+                        <h6>${escapeHtml(medicine.name || "Medicine")}</h6>
+                        <span class="slider-price">₹${escapeHtml(medicine.price)}</span>
+                    </span>
+                </a>`).join("");
 
         }
 

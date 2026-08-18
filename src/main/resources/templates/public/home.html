@@ -17,7 +17,7 @@
 
     <!-- Website icon shown in browser tabs and Google Search results.
          No fixed sizes value is declared, so the browser can scale the
-         existing logo according to the surface where it is displayed. -->0
+         existing logo according to the surface where it is displayed. -->
     <link rel="icon"
           type="image/png"
           href="/images/logo.png"
@@ -72,6 +72,25 @@
 </head>
 
 <body class="home-luxury">
+
+<!-- Cinematic homepage intro. Decorative only; all page content remains available underneath. -->
+<div class="site-intro" id="siteIntro" aria-hidden="true">
+    <div class="intro-grid"></div>
+    <div class="intro-orbit intro-orbit-one"></div>
+    <div class="intro-orbit intro-orbit-two"></div>
+
+    <div class="intro-core">
+        <div class="intro-logo-shell">
+            <img src="/images/logo.png"
+                 th:src="@{/images/logo.png}"
+                 alt="">
+        </div>
+        <span class="intro-kicker">Pharmaceutical Company</span>
+        <div class="intro-wordmark"><strong>HFUR</strong> PHARMA</div>
+        <div class="intro-gold-line"><span></span></div>
+        <p>Trusted Healthcare. Delivered Nationwide.</p>
+    </div>
+</div>
 
 <!-- ================= NAVBAR ================= -->
 <div th:replace="~{fragments/navbar :: navbar}"></div>
@@ -248,63 +267,10 @@
     </div>
 </div>
 
-<!-- ================= COMPANY SYSTEM ================= -->
-
-<section class="company-system">
-    <div class="container">
-        <div class="company-system-shell">
-            <div class="company-system-copy">
-                <span class="eyebrow">Complete Pharmaceutical Care</span>
-                <h2>One company. Complete responsibility.</h2>
-                <p>From formulation planning and controlled production to quality review and dependable distribution, Hfur Pharma brings every critical function into one connected system.</p>
-
-                <a th:href="@{/medicines}" class="system-link">
-                    Explore our medicine portfolio <i class="fa-solid fa-arrow-right"></i>
-                </a>
-            </div>
-
-            <div class="capability-grid" aria-label="Hfur Pharma capabilities">
-                <article class="capability-card capability-card-featured">
-                    <span class="capability-icon"><i class="fa-solid fa-flask-vial"></i></span>
-                    <div>
-                        <small>Formulation</small>
-                        <h3>Research-led planning</h3>
-                        <p>Medicine development shaped around consistency, accessibility and patient needs.</p>
-                    </div>
-                </article>
-
-                <article class="capability-card">
-                    <span class="capability-icon"><i class="fa-solid fa-industry"></i></span>
-                    <div>
-                        <small>Production</small>
-                        <h3>Controlled in-house process</h3>
-                    </div>
-                </article>
-
-                <article class="capability-card">
-                    <span class="capability-icon"><i class="fa-solid fa-microscope"></i></span>
-                    <div>
-                        <small>Quality</small>
-                        <h3>Batch-level assurance</h3>
-                    </div>
-                </article>
-
-                <article class="capability-card">
-                    <span class="capability-icon"><i class="fa-solid fa-truck-medical"></i></span>
-                    <div>
-                        <small>Distribution</small>
-                        <h3>Reliable market reach</h3>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </div>
-</section>
-
 <!-- ================= FEATURED ================= -->
 
 <section id="featured"
-         class="container py-5">
+         class="container py-5 medicine-priority-section">
 
     <div class="section-toolbar">
 
@@ -360,6 +326,59 @@
 
     </div>
 
+</section>
+
+<!-- ================= COMPANY SYSTEM ================= -->
+
+<section class="company-system">
+    <div class="container">
+        <div class="company-system-shell">
+            <div class="company-system-copy">
+                <span class="eyebrow">Complete Pharmaceutical Care</span>
+                <h2>One company. Complete responsibility.</h2>
+                <p>From formulation planning and controlled production to quality review and dependable distribution, Hfur Pharma brings every critical function into one connected system.</p>
+
+                <a th:href="@{/medicines}" class="system-link">
+                    Explore our medicine portfolio <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+
+            <div class="capability-grid" aria-label="Hfur Pharma capabilities">
+                <article class="capability-card capability-card-featured">
+                    <span class="capability-icon"><i class="fa-solid fa-flask-vial"></i></span>
+                    <div>
+                        <small>Formulation</small>
+                        <h3>Research-led planning</h3>
+                        <p>Medicine development shaped around consistency, accessibility and patient needs.</p>
+                    </div>
+                </article>
+
+                <article class="capability-card">
+                    <span class="capability-icon"><i class="fa-solid fa-industry"></i></span>
+                    <div>
+                        <small>Production</small>
+                        <h3>Controlled in-house process</h3>
+                    </div>
+                </article>
+
+                <article class="capability-card">
+                    <span class="capability-icon"><i class="fa-solid fa-microscope"></i></span>
+                    <div>
+                        <small>Quality</small>
+                        <h3>Batch-level assurance</h3>
+                    </div>
+                </article>
+
+                <article class="capability-card">
+                    <span class="capability-icon"><i class="fa-solid fa-truck-medical"></i></span>
+                    <div>
+                        <small>Distribution</small>
+                        <h3>Reliable market reach</h3>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
 </section>
 
 <!-- ================= ABOUT ================= -->
