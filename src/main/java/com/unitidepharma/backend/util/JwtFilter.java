@@ -25,27 +25,44 @@ public class JwtFilter extends OncePerRequestFilter {
     private final UserRepository userRepository;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain)
+    protected void doFilterInternal(
+            HttpServletRequest request,
+            HttpServletResponse response,
+            FilterChain filterChain)
             throws ServletException, IOException {
 
         String path = request.getRequestURI();
+        String method = request.getMethod();
 
-        // ============================
-        // Skip Public Routes
-        // ============================
-        if (path.startsWith("/api/auth/")
-                || path.startsWith("/api/public/")
+        // ==========================================
+        // ALWAYS ALLOW CORS PREFLIGHT
+        // ==========================================
+        if ("OPTIONS".equalsIgnoreCase(method)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        // ==========================================
+        // PUBLIC AUTH ROUTES
+        // ==========================================
+        if (path.startsWith("/api/auth/")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+        // ==========================================
+        // OTHER PUBLIC ROUTES
+        // ==========================================
+        if (path.startsWith("/api/public/")
                 || path.startsWith("/css/")
                 || path.startsWith("/js/")
                 || path.startsWith("/images/")
                 || path.startsWith("/icons/")
                 || path.startsWith("/webjars/")
                 || path.equals("/")
+                || path.equals("/home")
                 || path.equals("/login")
                 || path.equals("/register")
-                || path.equals("/home")
                 || path.equals("/favicon.ico")) {
 
             filterChain.doFilter(request, response);
@@ -56,7 +73,7 @@ public class JwtFilter extends OncePerRequestFilter {
 
             String header = request.getHeader("Authorization");
 
-            // No JWT → continue. SecurityConfig will decide if authentication is required.
+            // No JWT
             if (header == null || !header.startsWith("Bearer ")) {
                 filterChain.doFilter(request, response);
                 return;
@@ -64,15 +81,24 @@ public class JwtFilter extends OncePerRequestFilter {
 
             String token = header.substring(7);
 
+            // Invalid JWT
             if (!jwtUtil.isTokenValid(token)) {
+                SecurityContextHolder.clearContext();
                 filterChain.doFilter(request, response);
                 return;
             }
 
             String email = jwtUtil.extractEmail(token);
 
-            User user = userRepository.findByEmailIgnoreCase(email)
-                    .orElseThrow(() -> new RuntimeException("User not found"));
+            User user = userRepository
+                    .findByEmailIgnoreCase(email)
+                    .orElse(null);
+
+            if (user == null) {
+                SecurityContextHolder.clearContext();
+                filterChain.doFilter(request, response);
+                return;
+            }
 
             if (!user.isActive()) {
                 SecurityContextHolder.clearContext();
@@ -91,7 +117,9 @@ public class JwtFilter extends OncePerRequestFilter {
                             )
                     );
 
-            SecurityContextHolder.getContext().setAuthentication(authentication);
+            SecurityContextHolder
+                    .getContext()
+                    .setAuthentication(authentication);
 
         } catch (JwtException e) {
 

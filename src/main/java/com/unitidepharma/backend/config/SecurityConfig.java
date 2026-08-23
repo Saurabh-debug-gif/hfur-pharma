@@ -17,21 +17,42 @@ public class SecurityConfig {
     private final JwtFilter jwtFilter;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http)
+            throws Exception {
 
         http
+
+                // ==========================================
+                // CSRF
+                // ==========================================
                 .csrf(csrf -> csrf.disable())
 
+                // ==========================================
+                // CORS
+                // ==========================================
                 .cors(Customizer.withDefaults())
 
+                // ==========================================
+                // STATELESS JWT
+                // ==========================================
                 .sessionManagement(session ->
-                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                        session.sessionCreationPolicy(
+                                SessionCreationPolicy.STATELESS
+                        )
+                )
 
+                // ==========================================
+                // AUTHORIZATION
+                // ==========================================
                 .authorizeHttpRequests(auth -> auth
 
-                        // ==========================
-                        // Public Pages
-                        // ==========================
+                        // CORS
+                        .requestMatchers(
+                                org.springframework.http.HttpMethod.OPTIONS,
+                                "/**"
+                        ).permitAll()
+
+                        // Public pages
                         .requestMatchers(
                                 "/",
                                 "/home",
@@ -41,9 +62,7 @@ public class SecurityConfig {
                                 "/medicine/**"
                         ).permitAll()
 
-                        // ==========================
-                        // Static Resources
-                        // ==========================
+                        // Static resources
                         .requestMatchers(
                                 "/css/**",
                                 "/js/**",
@@ -53,27 +72,36 @@ public class SecurityConfig {
                                 "/favicon.ico"
                         ).permitAll()
 
-                        // ==========================
-                        // Public APIs
-                        // ==========================
+                        // ==================================
+                        // PUBLIC AUTH API
+                        // ==================================
                         .requestMatchers(
-                                "/api/auth/**",
+                                "/api/auth/**"
+                        ).permitAll()
+
+                        // ==================================
+                        // PUBLIC APIs
+                        // ==================================
+                        .requestMatchers(
                                 "/api/public/**"
                         ).permitAll()
 
-                        // ==========================
+                        // ==================================
+                        // PROTECTED APIs
+                        // ==================================
                         .requestMatchers(
-                                "/admin/**",
-                                "/customer/**",
-                                "/mr/**"
-                        ).permitAll()
-                        // ==========================
-                        // Protected APIs
-                        // ==========================
-                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
-                        .requestMatchers("/api/customer/**").hasRole("CUSTOMER")
-                        .requestMatchers("/api/mr/**").hasRole("MR")
+                                "/api/admin/**"
+                        ).hasRole("ADMIN")
 
+                        .requestMatchers(
+                                "/api/customer/**"
+                        ).hasRole("CUSTOMER")
+
+                        .requestMatchers(
+                                "/api/mr/**"
+                        ).hasRole("MR")
+
+                        // Everything else
                         .anyRequest().authenticated()
                 )
 
@@ -81,7 +109,11 @@ public class SecurityConfig {
                 .httpBasic(basic -> basic.disable())
                 .logout(logout -> logout.disable());
 
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        // JWT filter
+        http.addFilterBefore(
+                jwtFilter,
+                UsernamePasswordAuthenticationFilter.class
+        );
 
         return http.build();
     }
