@@ -6,6 +6,8 @@ import com.unitidepharma.backend.dto.RegisterRequest;
 import com.unitidepharma.backend.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -19,10 +21,30 @@ public class AuthController {
     // =========================
 
     @PostMapping("/register")
-    public AuthResponse register(@RequestBody RegisterRequest request) {
+    public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
 
-        return authService.register(request);
+        try {
 
+            System.out.println("========== REGISTER REQUEST ==========");
+            System.out.println("Name: " + request.getName());
+            System.out.println("Email: " + request.getEmail());
+            System.out.println("Role: " + request.getRole());
+
+            AuthResponse response = authService.register(request);
+
+            System.out.println("========== REGISTER SUCCESS ==========");
+
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+
+            System.out.println("========== REGISTER ERROR ==========");
+            e.printStackTrace();
+
+            return ResponseEntity
+                    .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(e.getMessage());
+        }
     }
 
     // =========================
