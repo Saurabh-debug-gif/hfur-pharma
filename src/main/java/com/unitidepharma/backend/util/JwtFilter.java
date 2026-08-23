@@ -35,9 +35,23 @@ public class JwtFilter extends OncePerRequestFilter {
         String method = request.getMethod();
 
         // ==========================================
-        // ALWAYS ALLOW CORS PREFLIGHT
+        // DEBUG
         // ==========================================
+
+        System.out.println(
+                "JWT FILTER >>> " + method + " " + path
+        );
+
+        // ==========================================
+        // CORS PREFLIGHT
+        // ==========================================
+
         if ("OPTIONS".equalsIgnoreCase(method)) {
+
+            System.out.println(
+                    "JWT FILTER >>> OPTIONS ALLOWED"
+            );
+
             filterChain.doFilter(request, response);
             return;
         }
@@ -45,7 +59,13 @@ public class JwtFilter extends OncePerRequestFilter {
         // ==========================================
         // PUBLIC AUTH ROUTES
         // ==========================================
+
         if (path.startsWith("/api/auth/")) {
+
+            System.out.println(
+                    "JWT FILTER >>> PUBLIC AUTH ALLOWED: " + path
+            );
+
             filterChain.doFilter(request, response);
             return;
         }
@@ -53,6 +73,7 @@ public class JwtFilter extends OncePerRequestFilter {
         // ==========================================
         // OTHER PUBLIC ROUTES
         // ==========================================
+
         if (path.startsWith("/api/public/")
                 || path.startsWith("/css/")
                 || path.startsWith("/js/")
@@ -69,12 +90,23 @@ public class JwtFilter extends OncePerRequestFilter {
             return;
         }
 
+        // ==========================================
+        // JWT VALIDATION
+        // ==========================================
+
         try {
 
-            String header = request.getHeader("Authorization");
+            String header =
+                    request.getHeader("Authorization");
 
             // No JWT
-            if (header == null || !header.startsWith("Bearer ")) {
+            if (header == null ||
+                    !header.startsWith("Bearer ")) {
+
+                System.out.println(
+                        "JWT FILTER >>> NO TOKEN"
+                );
+
                 filterChain.doFilter(request, response);
                 return;
             }
@@ -83,28 +115,55 @@ public class JwtFilter extends OncePerRequestFilter {
 
             // Invalid JWT
             if (!jwtUtil.isTokenValid(token)) {
+
+                System.out.println(
+                        "JWT FILTER >>> INVALID TOKEN"
+                );
+
                 SecurityContextHolder.clearContext();
+
                 filterChain.doFilter(request, response);
                 return;
             }
 
-            String email = jwtUtil.extractEmail(token);
+            String email =
+                    jwtUtil.extractEmail(token);
+
+            System.out.println(
+                    "JWT FILTER >>> TOKEN EMAIL: " + email
+            );
 
             User user = userRepository
                     .findByEmailIgnoreCase(email)
                     .orElse(null);
 
             if (user == null) {
+
+                System.out.println(
+                        "JWT FILTER >>> USER NOT FOUND"
+                );
+
                 SecurityContextHolder.clearContext();
+
                 filterChain.doFilter(request, response);
                 return;
             }
 
             if (!user.isActive()) {
+
+                System.out.println(
+                        "JWT FILTER >>> USER INACTIVE"
+                );
+
                 SecurityContextHolder.clearContext();
+
                 filterChain.doFilter(request, response);
                 return;
             }
+
+            // ======================================
+            // AUTHENTICATE USER
+            // ======================================
 
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
@@ -112,7 +171,8 @@ public class JwtFilter extends OncePerRequestFilter {
                             null,
                             List.of(
                                     new SimpleGrantedAuthority(
-                                            "ROLE_" + user.getRole().name()
+                                            "ROLE_" +
+                                                    user.getRole().name()
                                     )
                             )
                     );
@@ -121,14 +181,29 @@ public class JwtFilter extends OncePerRequestFilter {
                     .getContext()
                     .setAuthentication(authentication);
 
+            System.out.println(
+                    "JWT FILTER >>> AUTHENTICATED: "
+                            + user.getEmail()
+                            + " ROLE=" + user.getRole().name()
+            );
+
         } catch (JwtException e) {
+
+            System.out.println(
+                    "JWT FILTER >>> JWT ERROR: "
+                            + e.getMessage()
+            );
 
             SecurityContextHolder.clearContext();
 
         } catch (Exception e) {
 
-            SecurityContextHolder.clearContext();
+            System.out.println(
+                    "JWT FILTER >>> ERROR: "
+                            + e.getMessage()
+            );
 
+            SecurityContextHolder.clearContext();
         }
 
         filterChain.doFilter(request, response);
