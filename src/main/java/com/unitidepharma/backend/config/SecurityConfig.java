@@ -17,13 +17,12 @@ public class SecurityConfig {
     private final JwtFilter jwtFilter;
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http)
-            throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http
 
                 // ==========================================
-                // CSRF
+                // DISABLE CSRF
                 // ==========================================
                 .csrf(csrf -> csrf.disable())
 
@@ -46,13 +45,23 @@ public class SecurityConfig {
                 // ==========================================
                 .authorizeHttpRequests(auth -> auth
 
-                        // CORS
+                        // ----------------------------------
+                        // PUBLIC AUTH APIs
+                        // ----------------------------------
                         .requestMatchers(
-                                org.springframework.http.HttpMethod.OPTIONS,
-                                "/**"
+                                "/api/auth/**"
                         ).permitAll()
 
-                        // Public pages
+                        // ----------------------------------
+                        // PUBLIC APIs
+                        // ----------------------------------
+                        .requestMatchers(
+                                "/api/public/**"
+                        ).permitAll()
+
+                        // ----------------------------------
+                        // PUBLIC PAGES
+                        // ----------------------------------
                         .requestMatchers(
                                 "/",
                                 "/home",
@@ -62,7 +71,9 @@ public class SecurityConfig {
                                 "/medicine/**"
                         ).permitAll()
 
-                        // Static resources
+                        // ----------------------------------
+                        // STATIC FILES
+                        // ----------------------------------
                         .requestMatchers(
                                 "/css/**",
                                 "/js/**",
@@ -73,43 +84,35 @@ public class SecurityConfig {
                         ).permitAll()
 
                         // ==================================
-                        // PUBLIC AUTH API
+                        // TEMPORARY TEST
                         // ==================================
-                        .requestMatchers(
-                                "/api/auth/**"
-                        ).permitAll()
-
+                        // EVERYTHING IS PUBLIC FOR NOW.
+                        //
+                        // This is ONLY to determine whether
+                        // Spring Security authorization is
+                        // causing the 403.
                         // ==================================
-                        // PUBLIC APIs
-                        // ==================================
-                        .requestMatchers(
-                                "/api/public/**"
-                        ).permitAll()
-
-                        // ==================================
-                        // PROTECTED APIs
-                        // ==================================
-                        .requestMatchers(
-                                "/api/admin/**"
-                        ).hasRole("ADMIN")
-
-                        .requestMatchers(
-                                "/api/customer/**"
-                        ).hasRole("CUSTOMER")
-
-                        .requestMatchers(
-                                "/api/mr/**"
-                        ).hasRole("MR")
-
-                        // Everything else
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 )
 
+                // ==========================================
+                // DISABLE DEFAULT LOGIN
+                // ==========================================
                 .formLogin(form -> form.disable())
+
+                // ==========================================
+                // DISABLE HTTP BASIC
+                // ==========================================
                 .httpBasic(basic -> basic.disable())
+
+                // ==========================================
+                // DISABLE LOGOUT
+                // ==========================================
                 .logout(logout -> logout.disable());
 
-        // JWT filter
+        // ==========================================
+        // JWT FILTER
+        // ==========================================
         http.addFilterBefore(
                 jwtFilter,
                 UsernamePasswordAuthenticationFilter.class
